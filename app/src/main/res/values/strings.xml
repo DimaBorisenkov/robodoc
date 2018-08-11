@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">RoboDOC</string>
+    <string name="app_name">FlashLab</string>
+    <string name="bloodTest">Аналіз крові</string>
+    <string name="trainer">Тренажер</string>
+    <string name="simpleTest">Тест</string>
 </resources>

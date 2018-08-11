@@ -1,7 +1,9 @@
-package com.example.dima.robodoc;
+package com.example.dima.robodoc.domain;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dima.robodoc.R;
 
 public class MainActivity extends AppCompatActivity {
 
