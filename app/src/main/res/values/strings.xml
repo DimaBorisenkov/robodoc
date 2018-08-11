@@ -3,4 +3,13 @@
     <string name="bloodTest">Аналіз крові</string>
     <string name="trainer">Тренажер</string>
     <string name="simpleTest">Тест</string>
+    <string name="title_activity_blood_test">BloodTestActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="firstTab">АНКЕТА</string>
+    <string name="secondTab">ІСТОРІЯ</string>
+
+    <string name="sortByDate">Дата</string>
+    <string name="sortByStatus">Статус</string>
 </resources>
