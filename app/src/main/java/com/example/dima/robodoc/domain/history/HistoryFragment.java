@@ -4,17 +4,25 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.data.models.Patient;
 
-public class HistoryFragment extends Fragment {
+import java.util.List;
 
+public class HistoryFragment extends Fragment implements HistoryContract.View{
+    private PatientsAdapter patientsAdapter;
+    private RecyclerView recyclerView;
+    private HistoryContract.Presenter historyPresenter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,7 +34,23 @@ public class HistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.hasFixedSize();
+
+
+        historyPresenter = new HistoryPresenter();
+
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(llm);
+
+        patientsAdapter = new PatientsAdapter(getContext(), new HistoryPresenter().patients);
+        recyclerView.setAdapter(patientsAdapter);
+
+        historyPresenter.setView(this);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,4 +71,13 @@ public class HistoryFragment extends Fragment {
         inflater.inflate(R.menu.menu_blood_test, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    @Override
+    public void setHistory(List<Patient> patients) {
+        patientsAdapter = new PatientsAdapter(patients, getContext(), recyclerView);
+        recyclerView.setAdapter(patientsAdapter);
+
+    }
+
+
 }

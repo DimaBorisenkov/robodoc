@@ -6,6 +6,10 @@ public class Disease {
     private String name;
     private Image image;
 
+    public Disease(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".domain.BloodTestActivity"
-            android:label="@string/title_activity_blood_test" />
+           />
         <activity android:name=".domain.TrainerActivity" />
         <activity android:name=".domain.SimpleTestActivity"></activity>
     </application>
