@@ -1,5 +1,6 @@
 package com.example.dima.robodoc.domain.form;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,13 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.data.models.Disease;
+import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.MainActivity;
+import com.example.dima.robodoc.domain.ResultActivity;
+
+import java.util.ArrayList;
 
 
-public class FormFragment extends Fragment implements FormContract.View{
+public class FormFragment extends Fragment implements FormContract.View {
 
     private RadioGroup gender;
     private TextView text;
-    private Button button;
+    private Button buttonConfirm;
     private ImageView user;
 
 
@@ -38,7 +45,16 @@ public class FormFragment extends Fragment implements FormContract.View{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(false);
-
+        buttonConfirm = view.findViewById(R.id.buttonConfirm);
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ResultActivity.class);
+                startActivity(intent);
+                //doesn't work at all I don't understand why,
+                //but I think there is a trouble in that Fragments does not have any packageContext
+            }
+        });
         setGender();
 
     }
@@ -46,6 +62,7 @@ public class FormFragment extends Fragment implements FormContract.View{
     @Override
     public void setGender() {
         View view = getView();
+
         gender = view.findViewById(R.id.radioSex);
         user = view.findViewById(R.id.user);
         text = view.findViewById(R.id.selectGender);
@@ -72,7 +89,6 @@ public class FormFragment extends Fragment implements FormContract.View{
         });
 
     }
-
 
 
     @Override

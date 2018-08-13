@@ -57,11 +57,11 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonConfirm"
         android:layout_width="309dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/radioSex"
         android:layout_centerVertical="true"
-        android:text="Button" />
+        android:text="CONFIRM" />
 
 </RelativeLayout>
