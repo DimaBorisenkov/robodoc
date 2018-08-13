@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.utils.SectionPageAdapter;
 
 public class BloodTestActivity extends AppCompatActivity {
 

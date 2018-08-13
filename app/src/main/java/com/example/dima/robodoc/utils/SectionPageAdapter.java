@@ -1,4 +1,4 @@
-package com.example.dima.robodoc.domain;
+package com.example.dima.robodoc.utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +9,7 @@ import com.example.dima.robodoc.domain.history.HistoryFragment;
 
 public class SectionPageAdapter extends FragmentPagerAdapter {
 
-    SectionPageAdapter(FragmentManager fm) {
+    public SectionPageAdapter(FragmentManager fm) {
         super(fm);
     }
 

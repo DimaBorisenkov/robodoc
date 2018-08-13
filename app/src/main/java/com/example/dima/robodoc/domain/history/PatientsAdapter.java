@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
@@ -87,7 +86,6 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context, patient.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
