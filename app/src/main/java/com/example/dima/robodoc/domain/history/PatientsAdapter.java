@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.domain.history;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.ResultActivity;
+import com.example.dima.robodoc.domain.TrainerActivity;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
 
 
     @Override
-    public void onBindViewHolder(PatientsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final PatientsAdapter.ViewHolder holder, int position) {
         final Patient patient = patients.get(position);
         String diseases = "Хвороби: ";
         String check = "";
@@ -86,8 +88,9 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(context, patient.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ResultActivity.class);
+                intent.putExtra("patient", patient);
+                context.startActivity(intent);
             }
         });
     }
