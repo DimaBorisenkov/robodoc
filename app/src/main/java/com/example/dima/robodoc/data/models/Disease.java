@@ -2,7 +2,9 @@ package com.example.dima.robodoc.data.models;
 
 import android.media.Image;
 
-public class Disease {
+import java.io.Serializable;
+
+public class Disease implements Serializable{
     private String name;
     private Image image;
 

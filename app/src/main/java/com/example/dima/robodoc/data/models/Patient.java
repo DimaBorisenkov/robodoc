@@ -5,9 +5,11 @@ import android.graphics.Color;
 
 import com.example.dima.robodoc.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Patient {
+public class Patient implements Serializable {
+
     private String name;
     private boolean gender;
     private boolean state;
