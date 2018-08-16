@@ -13,8 +13,7 @@ import android.widget.TextView;
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
-import com.example.dima.robodoc.domain.ResultActivity;
-import com.example.dima.robodoc.domain.TrainerActivity;
+import com.example.dima.robodoc.domain.result.ResultActivity;
 
 import java.util.List;
 

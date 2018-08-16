@@ -22,7 +22,7 @@ import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
-import com.example.dima.robodoc.domain.ResultActivity;
+import com.example.dima.robodoc.domain.result.ResultActivity;
 import com.example.dima.robodoc.utils.DiseaseDeterminant;
 import com.example.dima.robodoc.utils.NormaDeterminant;
 
@@ -64,7 +64,7 @@ public class FormFragment extends Fragment implements FormContract.View{
             public void onClick(View view) {
                 ArrayList<Blood> bloodArrayList = new ArrayList<>();
                 Patient patient = new Patient("test");
-
+                patient.setGender(genderBoolean);
                 for (EditText temp : editTexts){
                     if(temp.getText().length() > 0){
                         String name = createName(temp.getHint().toString());
