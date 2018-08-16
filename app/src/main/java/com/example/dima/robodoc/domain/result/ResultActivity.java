@@ -12,11 +12,13 @@ import com.example.dima.robodoc.data.models.Patient;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements ResultContract.View{
     private TextView patientName, patientState, patientDiseases;
     private ImageView patientSex;
     private Patient patient;
-    private String type, diseases;
+    private String type;
+    private StringBuilder diseases;
+    private ResultPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,37 +30,43 @@ public class ResultActivity extends AppCompatActivity {
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
         patientSex = findViewById(R.id.imageViewPatientSex);
 
-        patientName.setText(patient.getName());
-        if (patient.isState()) {
-            patientState.setText("здоровий");
-            patientState.setBackgroundColor(GREEN);
-            patientName.setBackgroundColor(GREEN);
-        } else {
-            patientState.setText("хворий");
-            patientName.setBackgroundColor(RED);
-            patientState.setBackgroundColor(RED);
-        }
+        presenter = new ResultPresenter();
+        presenter.setView(this);
+        diseases = presenter.createDiseases(patient);
 
-        if (patient.getDiseases() != null) {
-            diseases = "Хвороби : ";
-            for (Disease temp : patient.getDiseases()) {
-                diseases += temp.getName() + "; ";
-            }
-
-        } else {
-            diseases = "Хвороб немає!";
-        }
-        patientDiseases.setText(diseases);
-
-        if (patient.isGender()) {
-            patientSex.setImageResource(R.drawable.man_icon);
-        }
+        setValues();
 
 
     }
 
-    void getValues() {
+    @Override
+    public void getValues() {
         type = getIntent().getStringExtra("type");
         patient = (Patient) getIntent().getSerializableExtra("patient");
+    }
+
+    @Override
+    public void setValues() {
+        patientName.setText(patient.getName());
+
+        if (patient.isState()) {
+            patientState.setText("Здоровий");
+            patientState.setBackgroundColor(GREEN);
+            patientName.setBackgroundColor(GREEN);
+        } else {
+            patientState.setText("Хворий");
+            patientName.setBackgroundColor(RED);
+            patientState.setBackgroundColor(RED);
+        }
+
+        if (patient.isGender()) {
+            patientSex.setImageResource(R.drawable.man_icon);
+        } else {
+            patientSex.setImageResource(R.drawable.woman_icon);
+        }
+
+        patientDiseases.setText(diseases);
+
+
     }
 }
