@@ -29,7 +29,7 @@ import com.example.dima.robodoc.utils.NormaDeterminant;
 import java.util.ArrayList;
 
 
-public class FormFragment extends Fragment implements FormContract.View{
+public class FormFragment extends Fragment implements FormContract.View {
 
     private RadioGroup gender;
     private TextView text;
@@ -57,7 +57,7 @@ public class FormFragment extends Fragment implements FormContract.View{
         hb = view.findViewById(R.id.hb);
         rbc = view.findViewById(R.id.rbc);
 
-        final EditText [] editTexts = {hb, rbc};
+        final EditText[] editTexts = {hb, rbc};
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +65,8 @@ public class FormFragment extends Fragment implements FormContract.View{
                 ArrayList<Blood> bloodArrayList = new ArrayList<>();
                 Patient patient = new Patient("test");
                 patient.setGender(genderBoolean);
-                for (EditText temp : editTexts){
-                    if(temp.getText().length() > 0){
+                for (EditText temp : editTexts) {
+                    if (temp.getText().length() > 0) {
                         String name = createName(temp.getHint().toString());
                         bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
                     }
@@ -75,17 +75,17 @@ public class FormFragment extends Fragment implements FormContract.View{
                 Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
                 ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood);
 
-                boolean [] norma = {blood.isHBNorma(), blood.isRBCNorma()};
+                boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
 
                 patient.setState(true);
-                for(boolean temp : norma){
-                   if(!temp){
-                       patient.setState(false);
-                   }
+                for (boolean temp : norma) {
+                    if (!temp) {
+                        patient.setState(false);
+                    }
                 }
-                
-                if(!patient.isState()){
-                    if(diseases.size() != 0){
+
+                if (!patient.isState()) {
+                    if (diseases.size() != 0) {
                         patient.setDiseases(diseases);
                     }
                 }
@@ -94,9 +94,6 @@ public class FormFragment extends Fragment implements FormContract.View{
                 intent.putExtra("type", "form");
                 intent.putExtra("patient", patient);
                 startActivity(intent);
-
-
-
 
 
             }
@@ -139,8 +136,8 @@ public class FormFragment extends Fragment implements FormContract.View{
     public String createName(String hint) {
 
         String name = "";
-        char [] nameSymbols = hint.toCharArray();
-        for(int i = 0; i < 4 ; i++){
+        char[] nameSymbols = hint.toCharArray();
+        for (int i = 0; i < 4; i++) {
             name += nameSymbols[i];
 
         }
