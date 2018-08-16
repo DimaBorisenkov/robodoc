@@ -16,7 +16,8 @@ public class ResultActivity extends AppCompatActivity {
     private TextView patientName, patientState, patientDiseases;
     private ImageView patientSex;
     private Patient patient;
-    private String type, diseases;
+    private String type;
+    private StringBuilder diseases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,30 +29,36 @@ public class ResultActivity extends AppCompatActivity {
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
         patientSex = findViewById(R.id.imageViewPatientSex);
 
+        diseases = new StringBuilder();
+
         patientName.setText(patient.getName());
+
         if (patient.isState()) {
-            patientState.setText("здоровий");
+            patientState.setText("Здоровий");
             patientState.setBackgroundColor(GREEN);
             patientName.setBackgroundColor(GREEN);
         } else {
-            patientState.setText("хворий");
+            patientState.setText("Хворий");
             patientName.setBackgroundColor(RED);
             patientState.setBackgroundColor(RED);
         }
 
         if (patient.getDiseases() != null) {
-            diseases = "Хвороби : ";
+            diseases.append("Є підозри на такі хвороби:");
+            diseases.append("\n");
             for (Disease temp : patient.getDiseases()) {
-                diseases += temp.getName() + "; ";
+                diseases.append("• " + temp.getName());
+                diseases.append("\n");
             }
-
         } else {
-            diseases = "Хвороб немає!";
+            diseases.append("Хвороб немає");
         }
         patientDiseases.setText(diseases);
 
         if (patient.isGender()) {
             patientSex.setImageResource(R.drawable.man_icon);
+        } else {
+            patientSex.setImageResource(R.drawable.woman_icon);
         }
 
 
