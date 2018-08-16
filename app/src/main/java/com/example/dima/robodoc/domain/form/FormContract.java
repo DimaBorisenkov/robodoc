@@ -6,6 +6,8 @@ public interface FormContract {
     interface View {
         void setGender();
 
+        String createName(String hint);
+
 
     }
 

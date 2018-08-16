@@ -12,8 +12,14 @@
     <string name="confirm">Підтвердити</string>
 
 
+
+
     <string name="secondTab">ІСТОРІЯ</string>
 
     <string name="sortByDate">Дата</string>
     <string name="sortByStatus">Статус</string>
+
+    <string name="hb"> HB   (Гемоглобін)</string>
+    <string name="rbc">RBC (Еритроцити)</string>
+
 </resources>

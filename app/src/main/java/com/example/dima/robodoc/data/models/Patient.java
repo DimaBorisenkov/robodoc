@@ -24,6 +24,10 @@ public class Patient implements Serializable {
         this.diseases = diseases;
     }
 
+    public Patient(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
