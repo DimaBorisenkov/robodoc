@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RadioGroup
@@ -11,18 +11,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/selectGender"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
 
         <RadioButton
             android:id="@+id/radioMale"
-            android:layout_width="122dp"
-            android:layout_height="61dp"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
             android:button="@drawable/man_icon"
             android:text="@string/male"
             android:textAlignment="center"
-            android:textSize="35px"/>
+            android:textSize="35px" />
 
         <RadioButton
             android:id="@+id/radioFemale"
@@ -31,7 +31,7 @@
             android:button="@drawable/woman_icon"
             android:text="@string/female"
             android:textAlignment="center"
-            android:textSize="35px"/>
+            android:textSize="35px" />
 
     </RadioGroup>
 
@@ -48,11 +48,10 @@
 
     <ImageView
         android:id="@+id/user"
-        android:layout_width="162dp"
-        android:layout_height="124dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/radioSex"
-        android:layout_marginEnd="33dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignEnd="@+id/buttonConfirm"
+        android:layout_below="@+id/selectGender"
         app:srcCompat="@color/ic_launcher_background" />
 
 
@@ -60,31 +59,28 @@
         android:id="@+id/buttonConfirm"
         android:layout_width="309dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
+        android:layout_alignStart="@+id/radioSex"
+        android:layout_below="@+id/rbc"
         android:text="@string/confirm" />
 
     <EditText
         android:id="@+id/hb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/radioSex"
-        android:layout_marginBottom="243dp"
+        android:layout_below="@+id/user"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:hint="HB  (Гемоглобін)" />
+        android:hint="HB  (Гемоглобін)"
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/rbc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/radioSex"
-        android:layout_marginBottom="169dp"
+        android:layout_below="@+id/hb"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:hint="@string/rbc" />
+        android:hint="@string/rbc"
+        android:inputType="numberDecimal" />
 
 </RelativeLayout>
