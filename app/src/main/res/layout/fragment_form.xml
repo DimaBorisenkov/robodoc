@@ -57,11 +57,34 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonConfirm"
         android:layout_width="309dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:text="@string/confirm" />
+
+    <EditText
+        android:id="@+id/hb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/radioSex"
-        android:layout_centerVertical="true"
-        android:text="Button" />
+        android:layout_marginBottom="243dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="HB  (Гемоглобін)" />
+
+    <EditText
+        android:id="@+id/rbc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/radioSex"
+        android:layout_marginBottom="169dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="@string/rbc" />
 
 </RelativeLayout>

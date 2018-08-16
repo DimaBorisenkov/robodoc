@@ -1,5 +1,6 @@
 package com.example.dima.robodoc.domain.form;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,12 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.data.models.Blood;
+import com.example.dima.robodoc.data.models.Disease;
+import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.ResultActivity;
+import com.example.dima.robodoc.utils.DiseaseDeterminant;
+import com.example.dima.robodoc.utils.NormaDeterminant;
+
+import java.util.ArrayList;
 
 
 public class FormFragment extends Fragment implements FormContract.View{
@@ -25,6 +35,8 @@ public class FormFragment extends Fragment implements FormContract.View{
     private TextView text;
     private Button button;
     private ImageView user;
+    private boolean genderBoolean;
+    private EditText hb, rbc;
 
 
     @Nullable
@@ -35,12 +47,60 @@ public class FormFragment extends Fragment implements FormContract.View{
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(false);
 
         setGender();
 
+        button = view.findViewById(R.id.buttonConfirm);
+        hb = view.findViewById(R.id.hb);
+        rbc = view.findViewById(R.id.rbc);
+
+        final EditText [] editTexts = {hb, rbc};
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Blood> bloodArrayList = new ArrayList<>();
+                Patient patient = new Patient("test");
+
+                for (EditText temp : editTexts){
+                    if(temp.getText().length() > 0){
+                        String name = createName(temp.getHint().toString());
+                        bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
+                    }
+                }
+
+                Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
+                ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood);
+
+                boolean [] norma = {blood.isHBNorma(), blood.isRBCNorma()};
+
+                patient.setState(true);
+                for(boolean temp : norma){
+                   if(!temp){
+                       patient.setState(false);
+                   }
+                }
+                
+                if(!patient.isState()){
+                    if(diseases.size() != 0){
+                        patient.setDiseases(diseases);
+                    }
+                }
+
+                Intent intent = new Intent(getContext(), ResultActivity.class);
+                intent.putExtra("type", "form");
+                intent.putExtra("patient", patient);
+                startActivity(intent);
+
+
+
+
+
+            }
+        });
     }
 
     @Override
@@ -61,10 +121,12 @@ public class FormFragment extends Fragment implements FormContract.View{
                         case R.id.radioMale:
                             text.setText("Обрана стать - чоловік");
                             user.setImageResource(R.drawable.man_icon_big);
+                            genderBoolean = true;
                             break;
                         case R.id.radioFemale:
                             text.setText("Обрана стать - жінка");
                             user.setImageResource(R.drawable.woman_icon_big);
+                            genderBoolean = false;
                             break;
                     }
                 }
@@ -73,6 +135,17 @@ public class FormFragment extends Fragment implements FormContract.View{
 
     }
 
+    @Override
+    public String createName(String hint) {
+
+        String name = "";
+        char [] nameSymbols = hint.toCharArray();
+        for(int i = 0; i < 4 ; i++){
+            name += nameSymbols[i];
+
+        }
+        return name;
+    }
 
 
     @Override
