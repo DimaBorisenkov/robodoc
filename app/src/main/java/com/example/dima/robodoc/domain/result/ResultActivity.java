@@ -12,12 +12,13 @@ import com.example.dima.robodoc.data.models.Patient;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements ResultContract.View{
     private TextView patientName, patientState, patientDiseases;
     private ImageView patientSex;
     private Patient patient;
     private String type;
     private StringBuilder diseases;
+    private ResultPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,23 @@ public class ResultActivity extends AppCompatActivity {
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
         patientSex = findViewById(R.id.imageViewPatientSex);
 
-        diseases = new StringBuilder();
+        presenter = new ResultPresenter();
+        presenter.setView(this);
+        diseases = presenter.createDiseases(patient);
 
+        setValues();
+
+
+    }
+
+    @Override
+    public void getValues() {
+        type = getIntent().getStringExtra("type");
+        patient = (Patient) getIntent().getSerializableExtra("patient");
+    }
+
+    @Override
+    public void setValues() {
         patientName.setText(patient.getName());
 
         if (patient.isState()) {
@@ -43,29 +59,14 @@ public class ResultActivity extends AppCompatActivity {
             patientState.setBackgroundColor(RED);
         }
 
-        if (patient.getDiseases() != null) {
-            diseases.append("Є підозри на такі хвороби:");
-            diseases.append("\n");
-            for (Disease temp : patient.getDiseases()) {
-                diseases.append("• " + temp.getName());
-                diseases.append("\n");
-            }
-        } else {
-            diseases.append("Хвороб немає");
-        }
-        patientDiseases.setText(diseases);
-
         if (patient.isGender()) {
             patientSex.setImageResource(R.drawable.man_icon);
         } else {
             patientSex.setImageResource(R.drawable.woman_icon);
         }
 
+        patientDiseases.setText(diseases);
 
-    }
 
-    void getValues() {
-        type = getIntent().getStringExtra("type");
-        patient = (Patient) getIntent().getSerializableExtra("patient");
     }
 }
