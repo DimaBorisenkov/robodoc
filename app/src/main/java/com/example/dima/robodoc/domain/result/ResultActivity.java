@@ -8,12 +8,14 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
-import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
 
 import static android.graphics.Color.GREEN;
@@ -28,6 +30,8 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     private ResultPresenter presenter;
     private Resources resources;
     private Drawable[] drawables;
+    private Button buttonDelete;
+    private RelativeLayout layout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -37,21 +41,20 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        buttonDelete = findViewById(R.id.buttonDelete);
         getValues();
+        if(type.equals("history")) buttonDelete.setVisibility(View.VISIBLE);
+
         patientName = findViewById(R.id.textViewPatientName);
         patientState = findViewById(R.id.textViewPatientState);
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
         imageView = findViewById(R.id.imageView);
-
+        layout = findViewById(R.id.nameLayout);
         resources = getResources();
         imageView.setImageDrawable(resources.getDrawable(R.layout.layer, null));
-
-
         presenter = new ResultPresenter();
         presenter.setView(this);
-
         diseases = presenter.createDiseases(patient);
-
 
         setValues();
 
@@ -88,18 +91,17 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
             }
         }
 
-
-
         patientName.setText(patient.getName());
 
         if (patient.isState()) {
             patientState.setText("Здоровий");
-            patientState.setBackgroundColor(GREEN);
-            patientName.setBackgroundColor(GREEN);
+            layout.setBackgroundColor(GREEN);
+            /*patientState.setBackgroundColor(GREEN);
+            patientName.setBackgroundColor(GREEN);*/
         } else {
             patientState.setText("Хворий");
-            patientName.setBackgroundColor(RED);
-            patientState.setBackgroundColor(RED);
+            layout.setBackgroundColor(RED);
+           // patientState.setBackgroundColor(RED);
         }
 
         patientDiseases.setText(diseases);

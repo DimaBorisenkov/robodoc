@@ -68,68 +68,23 @@ public class FormFragment extends Fragment implements FormContract.View {
             public void onClick(View view) {
                 boolean checkName = presenter.checkName(name.getText().toString());
 
-                if (!checkGender){
-                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                }
-
-                if(!checkName){
-                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
-                }
+                if (!checkGender)Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if(!checkName)Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
 
                 if (checkName && checkGender) {
                     Patient patient = new Patient();
                     patient.setName(name.getText().toString());
                     patient.setGender(genderBoolean);
 
-                    boolean checkFields = true;
-
-                    for (EditText temp : editTexts) {
-                        if (temp.getText().toString().trim().length() != 0) {
-                            checkFields = false;
-                        }
-                    }
-
-                    if (checkFields) {
+                    if (presenter.checkFields(editTexts)) {
                         patient.setDiseases(new ArrayList<Disease>());
                         patient.setState(true);
-                        Intent intent = new Intent(getContext(), ResultActivity.class);
-                        intent.putExtra("type", "form");
-                        intent.putExtra("patient", patient);
-                        startActivity(intent);
+                        transmitValues(patient);
 
                     } else {
-
-                        ArrayList<Blood> bloodArrayList = new ArrayList<>();
-                        for (EditText temp : editTexts) {
-                            if (temp.getText().length() > 0) {
-                                String name = presenter.createName(temp.getHint().toString());
-                                bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
-                            }
-                        }
-
-                        Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
+                        Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                         ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
-
-                       //  boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
-                        patient.setState(true);
-                        for(Boolean temp : blood.getNorma()){
-                            if(!temp){
-                                patient.setState(false);
-                            }
-                        }
-
-                        if (!patient.isState()) {
-                            if (diseases.size() != 0) {
-                                patient.setDiseases(diseases);
-                            } else {
-                                patient.setDiseases(new ArrayList<Disease>());
-                            }
-                        }
-
-                        Intent intent = new Intent(getContext(), ResultActivity.class);
-                        intent.putExtra("type", "form");
-                        intent.putExtra("patient", patient);
-                        startActivity(intent);
+                        transmitValues(presenter.createPatient(patient, blood, diseases));
 
                     }
                 }
@@ -171,6 +126,14 @@ public class FormFragment extends Fragment implements FormContract.View {
 
     }
 
+
+    @Override
+    public void transmitValues(Patient patient) {
+        Intent intent = new Intent(getContext(), ResultActivity.class);
+        intent.putExtra("type", "form");
+        intent.putExtra("patient", patient);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
