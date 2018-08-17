@@ -70,15 +70,6 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
 
 
 
-        /*if(check.length() > 35){
-            check = check.substring(0, 35) + "...";
-        }*/
-        /*if (diseases.length() > 35) {
-            check = diseases.substring(0, 35) + "...";
-        } else {
-            check = diseases;
-        }*/
-
         holder.diseasesText.setText(check);
         holder.nameText.setText(patient.getName());
         holder.dateText.setText(patient.getDate());
@@ -91,6 +82,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
             public void onClick(View view) {
                 Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("patient", patient);
+                intent.putExtra("type", "history");
                 context.startActivity(intent);
             }
         });

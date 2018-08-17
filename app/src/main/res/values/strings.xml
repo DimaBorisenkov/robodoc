@@ -1,25 +1,29 @@
 <resources>
+    <!-- Menu -->
     <string name="app_name">FlashLab</string>
     <string name="bloodTest">Аналіз крові</string>
     <string name="trainer">Тренажер</string>
     <string name="simpleTest">Тест</string>
 
-
+    <!-- FormFragment -->
     <string name="firstTab">АНКЕТА</string>
     <string name="selectGender">Будь ласка, оберіть стать:</string>
     <string name="male">Чоловік</string>
     <string name="female">Жінка</string>
     <string name="confirm">Підтвердити</string>
 
+    <!-- Blood's names -->
+    <string name="hb"> HB   (Гемоглобін)</string>
+    <string name="rbc">RBC (Еритроцити)</string>
 
-
-
+    <!-- HistoryFragment -->
     <string name="secondTab">ІСТОРІЯ</string>
 
+    <!-- TabMenu -->
     <string name="sortByDate">Дата</string>
     <string name="sortByStatus">Статус</string>
 
-    <string name="hb"> HB   (Гемоглобін)</string>
-    <string name="rbc">RBC (Еритроцити)</string>
+    <!-- ResultActivity -->
+    <string name="delete">Видалити з історії</string>
 
 </resources>
