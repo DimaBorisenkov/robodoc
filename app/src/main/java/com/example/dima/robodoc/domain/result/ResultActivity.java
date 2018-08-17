@@ -2,6 +2,7 @@ package com.example.dima.robodoc.domain.result;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
@@ -22,7 +23,7 @@ import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 
 public class ResultActivity extends AppCompatActivity implements ResultContract.View {
-    private TextView patientName, patientState, patientDiseases;
+    private TextView patientName, patientState, patientDiseases, patientDate;
     private ImageView imageView;
     private Patient patient;
     private String type;
@@ -48,6 +49,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         patientName = findViewById(R.id.textViewPatientName);
         patientState = findViewById(R.id.textViewPatientState);
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
+        patientDate = findViewById(R.id.textViewPatientDate);
         imageView = findViewById(R.id.imageView);
         layout = findViewById(R.id.nameLayout);
         resources = getResources();
@@ -92,16 +94,16 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         }
 
         patientName.setText(patient.getName());
-
+        patientDate.setText(patient.getDate());
+        int color;
         if (patient.isState()) {
+            color = Color.parseColor("#6664DD17");
             patientState.setText("Здоровий");
-            layout.setBackgroundColor(GREEN);
-            /*patientState.setBackgroundColor(GREEN);
-            patientName.setBackgroundColor(GREEN);*/
+            layout.setBackgroundColor(color);
         } else {
+            color = Color.parseColor("#9DEF0407");
             patientState.setText("Хворий");
-            layout.setBackgroundColor(RED);
-           // patientState.setBackgroundColor(RED);
+            layout.setBackgroundColor(color);
         }
 
         patientDiseases.setText(diseases);

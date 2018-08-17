@@ -17,8 +17,18 @@
         <RelativeLayout
             android:id="@+id/nameLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="72dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewPatientDate"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textViewPatientState"
+                android:layout_marginStart="13dp"
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textViewPatientName"
@@ -50,7 +60,7 @@
             android:layout_height="153dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="77dp"
             android:text="TextView" />
 
     </RelativeLayout>
