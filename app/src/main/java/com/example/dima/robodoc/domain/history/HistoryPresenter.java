@@ -35,5 +35,7 @@ public class HistoryPresenter implements HistoryContract.Presenter{
 
             view.setHistory(patients);
         }
-    }
+
+
+}
 

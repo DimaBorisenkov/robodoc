@@ -39,6 +39,7 @@ public class FormFragment extends Fragment implements FormContract.View {
     private EditText name, hb, rbc;
     private int selectedId;
     private boolean checkGender = false;
+    private FormContract.Presenter presenter;
 
 
     @Nullable
@@ -55,6 +56,7 @@ public class FormFragment extends Fragment implements FormContract.View {
 
         setGender();
 
+        presenter = new FormPresenter();
         button = view.findViewById(R.id.buttonConfirm);
         hb = view.findViewById(R.id.hb);
         rbc = view.findViewById(R.id.rbc);
@@ -64,13 +66,17 @@ public class FormFragment extends Fragment implements FormContract.View {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean checkNameAndGender = checkName();
+                boolean checkName = presenter.checkName(name.getText().toString());
 
                 if (!checkGender){
                     Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
                 }
 
-                if (checkNameAndGender && checkGender) {
+                if(!checkName){
+                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+                }
+
+                if (checkName && checkGender) {
                     Patient patient = new Patient();
                     patient.setName(name.getText().toString());
                     patient.setGender(genderBoolean);
@@ -96,7 +102,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                         ArrayList<Blood> bloodArrayList = new ArrayList<>();
                         for (EditText temp : editTexts) {
                             if (temp.getText().length() > 0) {
-                                String name = createName(temp.getHint().toString());
+                                String name = presenter.createName(temp.getHint().toString());
                                 bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
                             }
                         }
@@ -127,10 +133,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                         startActivity(intent);
 
                     }
-
                 }
-
-
             }
         });
     }
@@ -169,18 +172,6 @@ public class FormFragment extends Fragment implements FormContract.View {
 
     }
 
-    @Override
-    public String createName(String hint) {
-
-        String name = "";
-        char[] nameSymbols = hint.toCharArray();
-        for (int i = 0; i < 4; i++) {
-            name += nameSymbols[i];
-
-        }
-        return name;
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -197,15 +188,6 @@ public class FormFragment extends Fragment implements FormContract.View {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_blood_test, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    boolean checkName() {
-        boolean check = true;
-        if (name.getText().toString().trim().length() == 0) {
-            check = false;
-            Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
-        }
-        return check;
     }
 
 
