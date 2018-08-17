@@ -48,23 +48,25 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final PatientsAdapter.ViewHolder holder, int position) {
         final Patient patient = patients.get(position);
-        String diseases = "Хвороби: ";
+        StringBuilder diseases = new StringBuilder();
         String check = "";
-
-
-        for (Disease temp : patient.getDiseases()) {
-            diseases += temp.getName().toLowerCase();
-            diseases += ", ";
-        }
-        if(diseases.length() > 35){
-            check = diseases.substring(0, 35) + "...";
+        if(patient.getDiseases() == null){
+             check = "Хвороб немає";
         } else {
-            char [] message = diseases.toCharArray();
-            for (int i = 0; i < message.length - 2; i++){
-                check += message[i];
+            diseases.append("Хвороби: ");
+            for (Disease temp : patient.getDiseases()) {
+                diseases.append(temp.getName().toLowerCase());
+                diseases.append(", ");
+            }
+            if (diseases.length() > 35) {
+                check = diseases.substring(0, 35) + "...";
+            } else {
+                char[] message = diseases.toString().toCharArray();
+                for (int i = 0; i < message.length - 2; i++) {
+                    check += message[i];
+                }
             }
         }
-
 
 
 

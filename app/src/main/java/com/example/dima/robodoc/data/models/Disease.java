@@ -1,12 +1,16 @@
 package com.example.dima.robodoc.data.models;
 
-import android.media.Image;
-
 import java.io.Serializable;
 
 public class Disease implements Serializable{
     private String name;
-    private Image image;
+    private int imageId;
+
+
+    public Disease(String name, int imageId) {
+        this.name = name;
+        this.imageId = imageId;
+    }
 
     public Disease(String name) {
         this.name = name;
@@ -18,5 +22,13 @@ public class Disease implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

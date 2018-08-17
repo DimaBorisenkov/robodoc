@@ -12,5 +12,7 @@ public interface HistoryContract {
 
     interface Presenter {
         void setView(HistoryContract.View view);
+
+
     }
 }

@@ -36,7 +36,10 @@ public class FormFragment extends Fragment implements FormContract.View {
     private Button button;
     private ImageView user;
     private boolean genderBoolean;
-    private EditText hb, rbc;
+    private EditText name, hb, rbc;
+    private int selectedId;
+    private boolean checkGender = false;
+    private FormContract.Presenter presenter;
 
 
     @Nullable
@@ -53,49 +56,84 @@ public class FormFragment extends Fragment implements FormContract.View {
 
         setGender();
 
+        presenter = new FormPresenter();
         button = view.findViewById(R.id.buttonConfirm);
         hb = view.findViewById(R.id.hb);
         rbc = view.findViewById(R.id.rbc);
-
+        name = view.findViewById(R.id.name);
         final EditText[] editTexts = {hb, rbc};
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<Blood> bloodArrayList = new ArrayList<>();
-                Patient patient = new Patient("test");
-                patient.setGender(genderBoolean);
-                for (EditText temp : editTexts) {
-                    if (temp.getText().length() > 0) {
-                        String name = createName(temp.getHint().toString());
-                        bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
-                    }
+                boolean checkName = presenter.checkName(name.getText().toString());
+
+                if (!checkGender){
+                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
                 }
 
-                Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
-                ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood);
-
-                boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
-
-                patient.setState(true);
-                for (boolean temp : norma) {
-                    if (!temp) {
-                        patient.setState(false);
-                    }
+                if(!checkName){
+                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
                 }
 
-                if (!patient.isState()) {
-                    if (diseases.size() != 0) {
-                        patient.setDiseases(diseases);
+                if (checkName && checkGender) {
+                    Patient patient = new Patient();
+                    patient.setName(name.getText().toString());
+                    patient.setGender(genderBoolean);
+
+                    boolean checkFields = true;
+
+                    for (EditText temp : editTexts) {
+                        if (temp.getText().toString().trim().length() != 0) {
+                            checkFields = false;
+                        }
+                    }
+
+                    if (checkFields) {
+                        patient.setDiseases(new ArrayList<Disease>());
+                        patient.setState(true);
+                        Intent intent = new Intent(getContext(), ResultActivity.class);
+                        intent.putExtra("type", "form");
+                        intent.putExtra("patient", patient);
+                        startActivity(intent);
+
+                    } else {
+
+                        ArrayList<Blood> bloodArrayList = new ArrayList<>();
+                        for (EditText temp : editTexts) {
+                            if (temp.getText().length() > 0) {
+                                String name = presenter.createName(temp.getHint().toString());
+                                bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
+                            }
+                        }
+
+                        Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
+                        ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
+
+                        boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
+
+                        patient.setState(true);
+                        for (boolean temp : norma) {
+                            if (!temp) {
+                                patient.setState(false);
+                            }
+                        }
+
+                        if (!patient.isState()) {
+                            if (diseases.size() != 0) {
+                                patient.setDiseases(diseases);
+                            } else {
+                                patient.setDiseases(new ArrayList<Disease>());
+                            }
+                        }
+
+                        Intent intent = new Intent(getContext(), ResultActivity.class);
+                        intent.putExtra("type", "form");
+                        intent.putExtra("patient", patient);
+                        startActivity(intent);
+
                     }
                 }
-
-                Intent intent = new Intent(getContext(), ResultActivity.class);
-                intent.putExtra("type", "form");
-                intent.putExtra("patient", patient);
-                startActivity(intent);
-
-
             }
         });
     }
@@ -110,38 +148,28 @@ public class FormFragment extends Fragment implements FormContract.View {
         gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int selectedId = gender.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                } else {
-                    switch (selectedId) {
-                        case R.id.radioMale:
-                            text.setText("Обрана стать - чоловік");
-                            user.setImageResource(R.drawable.man_icon_big);
-                            genderBoolean = true;
-                            break;
-                        case R.id.radioFemale:
-                            text.setText("Обрана стать - жінка");
-                            user.setImageResource(R.drawable.woman_icon_big);
-                            genderBoolean = false;
-                            break;
-                    }
+                selectedId = gender.getCheckedRadioButtonId();
+                switch (selectedId) {
+                    case R.id.radioMale:
+                        text.setText("Обрана стать - чоловік");
+                        user.setImageResource(R.drawable.man_icon_big);
+                        genderBoolean = true;
+                        checkGender = true;
+                        break;
+                    case R.id.radioFemale:
+                        text.setText("Обрана стать - жінка");
+                        user.setImageResource(R.drawable.woman_icon_big);
+                        genderBoolean = false;
+                        checkGender = true;
+                        break;
+                    default:
+                        checkGender = false;
+                        break;
                 }
+
             }
         });
 
-    }
-
-    @Override
-    public String createName(String hint) {
-
-        String name = "";
-        char[] nameSymbols = hint.toCharArray();
-        for (int i = 0; i < 4; i++) {
-            name += nameSymbols[i];
-
-        }
-        return name;
     }
 
 
