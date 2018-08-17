@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/user"
+        android:layout_below="@+id/name"
         android:ems="10"
         android:hint="HB  (Гемоглобін)"
         android:inputType="numberDecimal" />
@@ -82,5 +82,15 @@
         android:ems="10"
         android:hint="@string/rbc"
         android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/radioSex"
+        android:layout_below="@+id/radioSex"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Ім'я" />
 
 </RelativeLayout>

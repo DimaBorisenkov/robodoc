@@ -24,8 +24,7 @@ public class Patient implements Serializable {
         this.diseases = diseases;
     }
 
-    public Patient(String name) {
-        this.name = name;
+    public Patient() {
     }
 
     public String getName() {
@@ -70,7 +69,7 @@ public class Patient implements Serializable {
 
     public int getStatusColor() {
         int color = Color.parseColor("#FFFFFFFF");
-        if(this.state){
+        if (this.state) {
             color = Color.parseColor("#6664DD17");
         } else {
             color = Color.parseColor("#9DEF0407");
@@ -78,9 +77,9 @@ public class Patient implements Serializable {
         return color;
     }
 
-    public int getImageGender(){
+    public int getImageGender() {
         int gender = 0;
-        if (this.gender){
+        if (this.gender) {
             gender = R.drawable.man_icon;
         } else {
             gender = R.drawable.woman_icon;
@@ -89,9 +88,9 @@ public class Patient implements Serializable {
         return gender;
     }
 
-    public int getImageStatus(){
+    public int getImageStatus() {
         int status = 0;
-        if(this.state){
+        if (this.state) {
             status = R.drawable.healthy;
         } else {
             status = R.drawable.unhealthy;

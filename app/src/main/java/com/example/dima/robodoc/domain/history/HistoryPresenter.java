@@ -1,5 +1,6 @@
 package com.example.dima.robodoc.domain.history;
 
+import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
 
@@ -23,18 +24,14 @@ public class HistoryPresenter implements HistoryContract.Presenter{
             ArrayList<Disease> diseases = new ArrayList<>();
             ArrayList<Disease> anotherDiseases = new ArrayList<>();
 
-            diseases.add(new Disease("Анемія"));
-            diseases.add(new Disease("Кров"));
-            diseases.add(new Disease("Голова"));
+            diseases.add(new Disease("Зневоднення", R.drawable.dehydration));
 
-            anotherDiseases.add(new Disease("Анемія"));
-            anotherDiseases.add(new Disease("Печінка"));
-            anotherDiseases.add(new Disease("Крововтрата"));
-            anotherDiseases.add(new Disease("Недостаток вітамінів"));
+            anotherDiseases.add(new Disease("Зневоднення", R.drawable.dehydration));
+            anotherDiseases.add(new Disease("Згущення крові", R.drawable.blood_clotting));
 
-            patients.add(new Patient("Anna", date, false, true, diseases));
-            patients.add(new Patient("Dima", date, true, false, anotherDiseases));
-            patients.add(new Patient("Oleg", date, true, true, diseases));
+            patients.add(new Patient("Anna", date, false, false, diseases));
+            patients.add(new Patient("Dima", date, true, true, new ArrayList<Disease>()));
+            patients.add(new Patient("Oleg", date, true, false, anotherDiseases));
 
             view.setHistory(patients);
         }

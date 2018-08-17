@@ -16,7 +16,7 @@ public class ResultPresenter implements ResultContract.Presenter {
     @Override
     public StringBuilder createDiseases(Patient patient) {
         StringBuilder diseases = new StringBuilder();
-        if (patient.getDiseases() != null) {
+        if (patient.getDiseases().size() != 0) {
             diseases.append("Є підозри на такі хвороби:");
             diseases.append("\n");
             for (Disease temp : patient.getDiseases()) {
@@ -24,7 +24,9 @@ public class ResultPresenter implements ResultContract.Presenter {
                 diseases.append("\n");
             }
         } else {
-            diseases.append("Хвороб немає");
+            if(patient.isState()) diseases.append("Хвороб немає");
+            else diseases.append("Один з показників крові не у нормі");
+
         }
        return diseases;
 
