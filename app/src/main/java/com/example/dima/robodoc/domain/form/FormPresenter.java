@@ -7,7 +7,9 @@ import com.example.dima.robodoc.data.models.Blood;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FormPresenter implements FormContract.Presenter{
 
@@ -61,6 +63,11 @@ public class FormPresenter implements FormContract.Presenter{
                 patient.setDiseases(new ArrayList<Disease>());
             }
         }
+
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        patient.setDate(simpleDateFormat.format(date).toString());
+
         return patient;
 
     }
