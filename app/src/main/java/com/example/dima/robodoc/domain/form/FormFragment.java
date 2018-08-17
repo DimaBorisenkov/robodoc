@@ -110,11 +110,10 @@ public class FormFragment extends Fragment implements FormContract.View {
                         Blood blood = new NormaDeterminant().check(bloodArrayList, genderBoolean);
                         ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
 
-                        boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
-
+                       //  boolean[] norma = {blood.isHBNorma(), blood.isRBCNorma()};
                         patient.setState(true);
-                        for (boolean temp : norma) {
-                            if (!temp) {
+                        for(Boolean temp : blood.getNorma()){
+                            if(!temp){
                                 patient.setState(false);
                             }
                         }

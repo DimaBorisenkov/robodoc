@@ -9,6 +9,10 @@ public class Blood {
     private boolean HBNorma, HBUp, HBDown;
     private boolean RBCNorma, RBCUp, RBCDown;
 
+    ArrayList<Boolean> norma;
+
+
+
     public Blood() {
     }
 
@@ -19,6 +23,13 @@ public class Blood {
 
     }
 
+    public ArrayList<Boolean> getNorma() {
+        return norma;
+    }
+
+    public void setNorma(ArrayList<Boolean> norma) {
+        this.norma = norma;
+    }
 
     public String getName() {
         return name;

@@ -8,15 +8,16 @@ public class NormaDeterminant {
     private String bloodName = "";
     private double bloodValue = 0;
     private Blood blood = new Blood();
-
+    private ArrayList<Boolean> norma = new ArrayList<>();
     public Blood check(ArrayList<Blood> bloodArrayList, boolean gender){
 
         for(Blood temp : bloodArrayList) {
             bloodName = temp.getName();
             bloodValue = temp.getValue();
             selectNorma(gender);
-        }
 
+        }
+        blood.setNorma(norma);
         return blood;
 
     }
@@ -25,12 +26,18 @@ public class NormaDeterminant {
         switch (bloodName){
             case "HB":
                 if(gender){
-                    if(bloodValue >= 130 && bloodValue <= 160) blood.setHBNorma(true);
+                    if(bloodValue >= 130 && bloodValue <= 160) {
+                        blood.setHBNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
                     if(bloodValue < 130) blood.setHBDown(true);
                     if(bloodValue > 160) blood.setHBUp(true);
 
                 } else {
-                    if(bloodValue >= 120 && bloodValue <= 140) blood.setHBNorma(true);
+                    if(bloodValue >= 120 && bloodValue <= 140) {
+                        blood.setHBNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
                     if(bloodValue < 120) blood.setHBDown(true);
                     if(bloodValue > 140) blood.setHBUp(true);
 
@@ -38,12 +45,18 @@ public class NormaDeterminant {
                 break;
             case "RBC":
                 if(gender){
-                    if (bloodValue >= 4 && bloodValue <= 5.1) blood.setRBCNorma(true);
+                    if (bloodValue >= 4 && bloodValue <= 5.1) {
+                        blood.setRBCNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
                     if (bloodValue < 4) blood.setRBCDown(true);
                     if (bloodValue > 5.1) blood.setRBCUp(true);
 
                 } else {
-                    if (bloodValue >= 3.7 && bloodValue <= 4.7) blood.setRBCNorma(true);
+                    if (bloodValue >= 3.7 && bloodValue <= 4.7) {
+                        blood.setRBCNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
                     if (bloodValue < 3.7) blood.setRBCDown(true);
                     if (bloodValue > 4.7) blood.setRBCUp(true);
 
@@ -51,6 +64,6 @@ public class NormaDeterminant {
                 break;
         }
 
-
     }
+
 }

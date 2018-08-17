@@ -49,6 +49,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
 
         presenter = new ResultPresenter();
         presenter.setView(this);
+
         diseases = presenter.createDiseases(patient);
 
 
@@ -65,21 +66,29 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setValues() {
-        drawables = new Drawable[patient.getDiseases().size() + 1];
+        if (patient.getDiseases() != null) {
+            drawables = new Drawable[patient.getDiseases().size() + 1];
+            if (patient.isGender()) {
+                drawables[0] = resources.getDrawable(R.drawable.man_body, null);
+            } else {
+                drawables[0] = resources.getDrawable(R.drawable.woman_body, null);
+            }
+            for (int i = 1; i < drawables.length; i++) {
+                drawables[i] = resources.getDrawable(
+                        patient.getDiseases().get(i - 1).getImageId(), null);
+            }
+            LayerDrawable layerDrawable = new LayerDrawable(drawables);
+            imageView.setImageDrawable(layerDrawable);
 
-        if (patient.isGender()) {
-            drawables[0] = resources.getDrawable(R.drawable.man_body, null);
         } else {
-            drawables[0] = resources.getDrawable(R.drawable.woman_body, null);
+            if(patient.isGender()){
+                imageView.setImageResource(R.drawable.man_body);
+            } else {
+                imageView.setImageResource(R.drawable.woman_body);
+            }
         }
 
-        for(int i = 1; i < drawables.length; i++){
-            drawables[i] = resources.getDrawable(
-                    patient.getDiseases().get(i - 1).getImageId(), null);
-        }
 
-        LayerDrawable layerDrawable = new LayerDrawable(drawables);
-        imageView.setImageDrawable(layerDrawable);
 
         patientName.setText(patient.getName());
 

@@ -16,7 +16,7 @@ public class ResultPresenter implements ResultContract.Presenter {
     @Override
     public StringBuilder createDiseases(Patient patient) {
         StringBuilder diseases = new StringBuilder();
-        if (patient.getDiseases().size() != 0) {
+        if (patient.getDiseases() != null && patient.getDiseases().size() > 0) {
             diseases.append("Є підозри на такі хвороби:");
             diseases.append("\n");
             for (Disease temp : patient.getDiseases()) {
