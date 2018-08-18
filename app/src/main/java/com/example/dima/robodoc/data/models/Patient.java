@@ -95,34 +95,17 @@ public class Patient extends RealmObject {
     }
 
     public int getStatusColor() {
-        int color = Color.parseColor("#FFFFFFFF");
-        if (this.state) {
-            color = Color.parseColor("#6664DD17");
-        } else {
-            color = Color.parseColor("#9DEF0407");
-        }
-        return color;
+        if (this.state) return Color.parseColor("#6664DD17");
+        else return Color.parseColor("#9DEF0407");
     }
 
     public int getImageGender() {
-        int gender = 0;
-        if (this.gender) {
-            gender = R.drawable.man_icon;
-        } else {
-            gender = R.drawable.woman_icon;
-        }
-
-        return gender;
+        if (this.gender) return R.drawable.man_icon;
+        else return R.drawable.woman_icon;
     }
 
     public int getImageStatus() {
-        int status = 0;
-        if (this.state) {
-            status = R.drawable.healthy;
-        } else {
-            status = R.drawable.unhealthy;
-        }
-
-        return status;
+        if (this.state) return R.drawable.healthy;
+        else return R.drawable.unhealthy;
     }
 }

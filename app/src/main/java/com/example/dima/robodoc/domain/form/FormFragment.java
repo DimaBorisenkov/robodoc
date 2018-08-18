@@ -47,6 +47,7 @@ public class FormFragment extends Fragment implements FormContract.View {
     private boolean checkGender = false;
     private FormContract.Presenter presenter;
     private Realm realm;
+    private Patient patient;
 
 
     @Nullable
@@ -81,7 +82,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                 if (checkName && checkGender) {
                     Date date = new Date();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-                    final Patient patient = new Patient();
+                    patient = new Patient();
 
                     patient.setDate(simpleDateFormat.format(date).toString());
                     patient.setName(name.getText().toString());
@@ -93,13 +94,17 @@ public class FormFragment extends Fragment implements FormContract.View {
                         patient.setBlood("");
                         savePatient(patient);
                         transmitValues(patient);
+                        for(EditText temp : editTexts) temp.setText("");
+                        name.setText("");
 
                     } else {
                         Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                         RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
-                        Patient patientObj = presenter.createPatient(patient, blood, diseases);
-                        savePatient(patientObj);
-                        transmitValues(patientObj);
+                        patient = presenter.createPatient(patient, blood, diseases);
+                        savePatient(patient);
+                        transmitValues(patient);
+                        for(EditText temp : editTexts) temp.setText("");
+                        name.setText("");
                     }
                 }
             }

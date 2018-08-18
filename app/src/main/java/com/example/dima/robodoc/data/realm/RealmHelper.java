@@ -1,7 +1,5 @@
 package com.example.dima.robodoc.data.realm;
 
-
-
 import com.example.dima.robodoc.data.models.Patient;
 
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ public class RealmHelper {
     public RealmHelper(Realm realm) {
         this.realm = realm;
     }
-
 
     public void retrieveFromDB(){
         patients = realm.where(Patient.class).findAll();

@@ -44,26 +44,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final PatientsAdapter.ViewHolder holder, int position) {
         final Patient patient = patients.get(position);
-        StringBuilder diseases = new StringBuilder();
-        String check = "";
-
-        if(patient.getDiseases() == null || patient.getDiseases().size() == 0){
-             check = "Хвороб немає";
-        } else {
-            diseases.append("Хвороби: ");
-            for (Disease temp : patient.getDiseases()) {
-                diseases.append(temp.getName().toLowerCase());
-                diseases.append(", ");
-            }
-            if (diseases.length() > 35) {
-                check = diseases.substring(0, 35) + "...";
-            } else {
-                char[] message = diseases.toString().toCharArray();
-                for (int i = 0; i < message.length - 2; i++) {
-                    check += message[i];
-                }
-            }
-        }
+        String check = createDiseases(patient);
 
         holder.diseasesText.setText(check);
         holder.nameText.setText(patient.getName());
@@ -81,6 +62,29 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
+    }
+
+    private String createDiseases(Patient patient){
+        StringBuilder diseases = new StringBuilder();
+        String check = "";
+        if(patient.getDiseases() == null || patient.getDiseases().size() == 0){
+            check = "Хвороб немає";
+        } else {
+            diseases.append("Хвороби: ");
+            for (Disease temp : patient.getDiseases()) {
+                diseases.append(temp.getName().toLowerCase());
+                diseases.append(", ");
+            }
+            if (diseases.length() > 35) {
+                check = diseases.substring(0, 35) + "...";
+            } else {
+                char[] message = diseases.toString().toCharArray();
+                for (int i = 0; i < message.length - 2; i++) {
+                    check += message[i];
+                }
+            }
+        }
+        return check;
     }
 
 

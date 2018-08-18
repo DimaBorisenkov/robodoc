@@ -96,6 +96,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View{
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
     public void refresh(){
         patientsAdapter = new PatientsAdapter(realmHelper.refresh(), getContext(), recyclerView);
         recyclerView.setAdapter(patientsAdapter);

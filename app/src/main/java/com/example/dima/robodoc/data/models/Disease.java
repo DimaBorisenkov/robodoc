@@ -9,7 +9,6 @@ public class Disease extends RealmObject {
     private String name;
     private int imageId;
 
-
     public Disease(String name, int imageId) {
         this.name = name;
         this.imageId = imageId;
