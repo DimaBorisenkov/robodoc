@@ -7,6 +7,7 @@ import com.example.dima.robodoc.R;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
@@ -21,10 +22,11 @@ public class Patient extends RealmObject {
     private String name;
     private boolean gender;
     private boolean state;
-    private ArrayList<Disease> diseases;
+    private RealmList<Disease> diseases;
     private String date;
 
-    public Patient(String name, String date, boolean gender, boolean state, ArrayList<Disease> diseases) {
+    public Patient(String name, String date, boolean gender,
+                   boolean state, RealmList<Disease> diseases) {
         this.name = name;
         this.date = date;
         this.gender = gender;
@@ -33,6 +35,14 @@ public class Patient extends RealmObject {
     }
 
     public Patient() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -59,11 +69,11 @@ public class Patient extends RealmObject {
         this.state = state;
     }
 
-    public ArrayList<Disease> getDiseases() {
+    public RealmList<Disease> getDiseases() {
         return diseases;
     }
 
-    public void setDiseases(ArrayList<Disease> diseases) {
+    public void setDiseases(RealmList<Disease> diseases) {
         this.diseases = diseases;
     }
 

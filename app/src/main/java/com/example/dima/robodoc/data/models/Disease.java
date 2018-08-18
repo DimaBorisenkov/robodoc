@@ -2,7 +2,9 @@ package com.example.dima.robodoc.data.models;
 
 
 import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
+@RealmClass
 public class Disease extends RealmObject {
     private String name;
     private int imageId;

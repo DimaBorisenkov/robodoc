@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
@@ -22,12 +23,6 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
     private List<Patient> patients;
     private Context context;
     private RecyclerView recyclerView;
-
-
-    public PatientsAdapter(Context context, List<Patient> patients) {
-        this.context = context;
-        this.patients = patients;
-    }
 
     public PatientsAdapter(List<Patient> patients, Context context, RecyclerView recyclerView) {
         this.inflater = LayoutInflater.from(context);
@@ -50,7 +45,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         final Patient patient = patients.get(position);
         StringBuilder diseases = new StringBuilder();
         String check = "";
-        if(patient.getDiseases() == null){
+
+        if(patient.getDiseases() == null || patient.getDiseases().size() == 0){
              check = "Хвороб немає";
         } else {
             diseases.append("Хвороби: ");
@@ -68,8 +64,6 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
             }
         }
 
-
-
         holder.diseasesText.setText(check);
         holder.nameText.setText(patient.getName());
         holder.dateText.setText(patient.getDate());
@@ -80,10 +74,11 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ResultActivity.class);
+                Toast.makeText(context, patient.getName(), Toast.LENGTH_SHORT).show();
+              /*  Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("patient", patient);
                 intent.putExtra("type", "history");
-                context.startActivity(intent);
+                context.startActivity(intent);*/
             }
         });
     }

@@ -22,11 +22,17 @@ import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.history.HistoryFragment;
 import com.example.dima.robodoc.domain.result.ResultActivity;
 import com.example.dima.robodoc.utils.DiseaseDeterminant;
 import com.example.dima.robodoc.utils.NormaDeterminant;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import io.realm.Realm;
+import io.realm.RealmList;
 
 
 public class FormFragment extends Fragment implements FormContract.View {
@@ -40,6 +46,7 @@ public class FormFragment extends Fragment implements FormContract.View {
     private int selectedId;
     private boolean checkGender = false;
     private FormContract.Presenter presenter;
+    private Realm realm;
 
 
     @Nullable
@@ -68,23 +75,35 @@ public class FormFragment extends Fragment implements FormContract.View {
             public void onClick(View view) {
                 boolean checkName = presenter.checkName(name.getText().toString());
 
-                if (!checkGender)Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                if(!checkName)Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+                if (!checkGender)
+                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if (!checkName)
+                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
 
                 if (checkName && checkGender) {
-                    Patient patient = new Patient();
+                    Date date = new Date();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+                    final Patient patient = new Patient();
+
+                    patient.setDate(simpleDateFormat.format(date).toString());
                     patient.setName(name.getText().toString());
                     patient.setGender(genderBoolean);
 
                     if (presenter.checkFields(editTexts)) {
-                        patient.setDiseases(new ArrayList<Disease>());
+                        patient.setDiseases(new RealmList<Disease>());
                         patient.setState(true);
-                        transmitValues(patient);
+                        //transmitValues(patient);
+                        savePatient(patient);
+
 
                     } else {
                         Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
-                        ArrayList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
-                        transmitValues(presenter.createPatient(patient, blood, diseases));
+                        RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
+                        // transmitValues(presenter.createPatient(patient, blood, diseases));
+
+                        final Patient patientObj = presenter.createPatient(patient, blood, diseases);
+                        //  transmitValues(presenter.createPatient(patient, blood, diseases));
+                        savePatient(patientObj);
 
                     }
                 }
@@ -129,10 +148,10 @@ public class FormFragment extends Fragment implements FormContract.View {
 
     @Override
     public void transmitValues(Patient patient) {
-        Intent intent = new Intent(getContext(), ResultActivity.class);
+       /* Intent intent = new Intent(getContext(), ResultActivity.class);
         intent.putExtra("type", "form");
         intent.putExtra("patient", patient);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override
@@ -152,5 +171,18 @@ public class FormFragment extends Fragment implements FormContract.View {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    void savePatient(Patient patient) {
+        realm = new HistoryFragment().realm;
+
+        Number current = realm.where(Patient.class).max("id");
+        long nextId;
+        if (current == null) nextId = 1;
+        else nextId = current.intValue() + 1;
+        patient.setId(nextId);
+
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(patient);
+        realm.commitTransaction();
+    }
 
 }

@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.RealmList;
+
 public class FormPresenter implements FormContract.Presenter{
 
     @Override
@@ -48,8 +50,10 @@ public class FormPresenter implements FormContract.Presenter{
     }
 
     @Override
-    public Patient createPatient(Patient patient, Blood blood, ArrayList<Disease> diseases) {
+    public Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases) {
+
         patient.setState(true);
+
         for(Boolean temp : blood.getNorma()){
             if(!temp){
                 patient.setState(false);
@@ -60,13 +64,10 @@ public class FormPresenter implements FormContract.Presenter{
             if (diseases.size() != 0) {
                 patient.setDiseases(diseases);
             } else {
-                patient.setDiseases(new ArrayList<Disease>());
+                patient.setDiseases(new RealmList<Disease>());
             }
         }
 
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        patient.setDate(simpleDateFormat.format(date).toString());
 
         return patient;
 
