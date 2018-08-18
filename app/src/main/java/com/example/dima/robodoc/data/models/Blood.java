@@ -11,8 +11,6 @@ public class Blood {
 
     ArrayList<Boolean> norma;
 
-
-
     public Blood() {
     }
 

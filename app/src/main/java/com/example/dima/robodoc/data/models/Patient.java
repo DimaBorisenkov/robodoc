@@ -5,11 +5,19 @@ import android.graphics.Color;
 
 import com.example.dima.robodoc.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Patient implements Serializable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
+import io.realm.annotations.Required;
 
+@RealmClass
+public class Patient extends RealmObject {
+
+    @PrimaryKey
+    private long id;
+    @Required
     private String name;
     private boolean gender;
     private boolean state;

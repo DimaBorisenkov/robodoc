@@ -9,7 +9,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,9 +17,6 @@ import android.widget.TextView;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
-
-import static android.graphics.Color.GREEN;
-import static android.graphics.Color.RED;
 
 public class ResultActivity extends AppCompatActivity implements ResultContract.View {
     private TextView patientName, patientState, patientDiseases, patientDate;

@@ -2,7 +2,6 @@ package com.example.dima.robodoc.utils;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
