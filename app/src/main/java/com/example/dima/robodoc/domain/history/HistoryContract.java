@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface HistoryContract {
     interface View {
-        void setHistory(List<Patient> patients);
+
     }
 
     interface Presenter {
