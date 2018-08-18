@@ -11,16 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.RealmList;
+
 public class FormPresenter implements FormContract.Presenter{
 
     @Override
     public boolean checkName(String name) {
-        boolean check = true;
-        if (name.trim().length() == 0) {
-            check = false;
-        }
-        return check;
-
+        if (name.trim().length() == 0) return false;
+        else return true;
     }
 
     @Override
@@ -48,8 +46,18 @@ public class FormPresenter implements FormContract.Presenter{
     }
 
     @Override
-    public Patient createPatient(Patient patient, Blood blood, ArrayList<Disease> diseases) {
+    public Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases) {
         patient.setState(true);
+
+        ArrayList<String> values = blood.getBlood();
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String temp : values){
+            stringBuilder.append(temp);
+            stringBuilder.append("\n");
+        }
+        patient.setBlood(stringBuilder.toString());
+
+
         for(Boolean temp : blood.getNorma()){
             if(!temp){
                 patient.setState(false);
@@ -60,25 +68,18 @@ public class FormPresenter implements FormContract.Presenter{
             if (diseases.size() != 0) {
                 patient.setDiseases(diseases);
             } else {
-                patient.setDiseases(new ArrayList<Disease>());
+                patient.setDiseases(new RealmList<Disease>());
             }
         }
-
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        patient.setDate(simpleDateFormat.format(date).toString());
-
         return patient;
 
     }
     @Override
     public String createName(String hint) {
-
         String name = "";
         char[] nameSymbols = hint.toCharArray();
         for (int i = 0; i < 4; i++) {
             name += nameSymbols[i];
-
         }
         return name;
     }

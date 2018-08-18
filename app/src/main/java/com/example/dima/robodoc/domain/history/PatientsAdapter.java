@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.TrainerActivity;
 import com.example.dima.robodoc.domain.result.ResultActivity;
 
 import java.util.List;
@@ -22,12 +24,6 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
     private List<Patient> patients;
     private Context context;
     private RecyclerView recyclerView;
-
-
-    public PatientsAdapter(Context context, List<Patient> patients) {
-        this.context = context;
-        this.patients = patients;
-    }
 
     public PatientsAdapter(List<Patient> patients, Context context, RecyclerView recyclerView) {
         this.inflater = LayoutInflater.from(context);
@@ -48,10 +44,31 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final PatientsAdapter.ViewHolder holder, int position) {
         final Patient patient = patients.get(position);
+        String check = createDiseases(patient);
+
+        holder.diseasesText.setText(check);
+        holder.nameText.setText(patient.getName());
+        holder.dateText.setText(patient.getDate());
+        holder.stateImage.setImageResource(patient.getImageStatus());
+        holder.genderImage.setImageResource(patient.getImageGender());
+        holder.rowLinearLayout.setBackgroundColor(patient.getStatusColor());
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ResultActivity.class);
+                intent.putExtra("type", "history");
+                intent.putExtra("id", patient.getId());
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    private String createDiseases(Patient patient){
         StringBuilder diseases = new StringBuilder();
         String check = "";
-        if(patient.getDiseases() == null){
-             check = "Хвороб немає";
+        if(patient.getDiseases() == null || patient.getDiseases().size() == 0){
+            check = "Хвороб немає";
         } else {
             diseases.append("Хвороби: ");
             for (Disease temp : patient.getDiseases()) {
@@ -67,25 +84,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
                 }
             }
         }
-
-
-
-        holder.diseasesText.setText(check);
-        holder.nameText.setText(patient.getName());
-        holder.dateText.setText(patient.getDate());
-        holder.stateImage.setImageResource(patient.getImageStatus());
-        holder.genderImage.setImageResource(patient.getImageGender());
-        holder.rowLinearLayout.setBackgroundColor(patient.getStatusColor());
-
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ResultActivity.class);
-                intent.putExtra("patient", patient);
-                intent.putExtra("type", "history");
-                context.startActivity(intent);
-            }
-        });
+        return check;
     }
 
 

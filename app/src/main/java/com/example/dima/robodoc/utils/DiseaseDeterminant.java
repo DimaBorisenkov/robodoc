@@ -2,7 +2,6 @@ package com.example.dima.robodoc.utils;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
@@ -10,13 +9,15 @@ import com.example.dima.robodoc.data.models.Disease;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+
 public class DiseaseDeterminant {
     Context context;
 
-    public ArrayList<Disease> selectDisease(Blood blood, Context context){
+    public RealmList<Disease> selectDisease(Blood blood, Context context){
         this.context = context;
 
-        ArrayList<Disease> diseases = new ArrayList<>();
+        RealmList<Disease> diseases = new RealmList<>();
 
         if(blood.isHBUp()){
             diseases.add(new Disease("Зневоднення",

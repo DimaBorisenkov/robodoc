@@ -5,18 +5,29 @@ import android.graphics.Color;
 
 import com.example.dima.robodoc.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Patient implements Serializable {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
+import io.realm.annotations.Required;
 
+@RealmClass
+public class Patient extends RealmObject {
+
+    @PrimaryKey
+    private long id;
+    @Required
     private String name;
     private boolean gender;
     private boolean state;
-    private ArrayList<Disease> diseases;
+    private RealmList<Disease> diseases;
     private String date;
+    private String bloodValues;
 
-    public Patient(String name, String date, boolean gender, boolean state, ArrayList<Disease> diseases) {
+    public Patient(String name, String date, boolean gender,
+                   boolean state, RealmList<Disease> diseases) {
         this.name = name;
         this.date = date;
         this.gender = gender;
@@ -25,6 +36,22 @@ public class Patient implements Serializable {
     }
 
     public Patient() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getBlood() {
+        return bloodValues;
+    }
+
+    public void setBlood(String bloodValues) {
+        this.bloodValues = bloodValues;
     }
 
     public String getName() {
@@ -51,11 +78,11 @@ public class Patient implements Serializable {
         this.state = state;
     }
 
-    public ArrayList<Disease> getDiseases() {
+    public RealmList<Disease> getDiseases() {
         return diseases;
     }
 
-    public void setDiseases(ArrayList<Disease> diseases) {
+    public void setDiseases(RealmList<Disease> diseases) {
         this.diseases = diseases;
     }
 
@@ -68,34 +95,17 @@ public class Patient implements Serializable {
     }
 
     public int getStatusColor() {
-        int color = Color.parseColor("#FFFFFFFF");
-        if (this.state) {
-            color = Color.parseColor("#6664DD17");
-        } else {
-            color = Color.parseColor("#9DEF0407");
-        }
-        return color;
+        if (this.state) return Color.parseColor("#6664DD17");
+        else return Color.parseColor("#9DEF0407");
     }
 
     public int getImageGender() {
-        int gender = 0;
-        if (this.gender) {
-            gender = R.drawable.man_icon;
-        } else {
-            gender = R.drawable.woman_icon;
-        }
-
-        return gender;
+        if (this.gender) return R.drawable.man_icon;
+        else return R.drawable.woman_icon;
     }
 
     public int getImageStatus() {
-        int status = 0;
-        if (this.state) {
-            status = R.drawable.healthy;
-        } else {
-            status = R.drawable.unhealthy;
-        }
-
-        return status;
+        if (this.state) return R.drawable.healthy;
+        else return R.drawable.unhealthy;
     }
 }

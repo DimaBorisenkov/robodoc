@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,17 +13,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.data.realm.RealmHelper;
 
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
 
 public class HistoryFragment extends Fragment implements HistoryContract.View{
     private PatientsAdapter patientsAdapter;
     private RecyclerView recyclerView;
     private HistoryContract.Presenter historyPresenter;
+    public Realm realm = Realm.getDefaultInstance();
+    private RealmHelper realmHelper;
+    private RealmChangeListener realmChangeListener;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,19 +43,35 @@ public class HistoryFragment extends Fragment implements HistoryContract.View{
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
+        realmHelper = new RealmHelper(realm);
+        realmHelper.retrieveFromDB();
+
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.hasFixedSize();
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         historyPresenter = new HistoryPresenter();
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(llm);
-
-        patientsAdapter = new PatientsAdapter(getContext(), new HistoryPresenter().patients);
+        patientsAdapter = new PatientsAdapter(realmHelper.refresh(), getContext(), recyclerView);
         recyclerView.setAdapter(patientsAdapter);
 
+        realmChangeListener = new RealmChangeListener() {
+            @Override
+            public void onChange(Object o) {
+                refresh();
+            }
+        };
+
+        realm.addChangeListener(realmChangeListener);
         historyPresenter.setView(this);
+        final SwipeRefreshLayout pullToRefresh = view.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 
 
@@ -73,11 +97,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View{
     }
 
     @Override
-    public void setHistory(List<Patient> patients) {
-        patientsAdapter = new PatientsAdapter(patients, getContext(), recyclerView);
+    public void refresh(){
+        patientsAdapter = new PatientsAdapter(realmHelper.refresh(), getContext(), recyclerView);
         recyclerView.setAdapter(patientsAdapter);
-
     }
+
+
 
 
 }

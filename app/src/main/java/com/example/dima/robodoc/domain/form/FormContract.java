@@ -9,6 +9,8 @@ import com.example.dima.robodoc.data.models.Patient;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+
 public interface FormContract {
     interface View {
         void setGender();
@@ -29,6 +31,6 @@ public interface FormContract {
 
         ArrayList<Blood> createBloodArrayList(EditText [] editTexts);
 
-        Patient createPatient(Patient patient, Blood blood, ArrayList<Disease> diseases);
+        Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases);
     }
 }

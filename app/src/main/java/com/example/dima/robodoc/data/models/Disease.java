@@ -1,15 +1,20 @@
 package com.example.dima.robodoc.data.models;
 
-import java.io.Serializable;
 
-public class Disease implements Serializable{
+import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
+
+@RealmClass
+public class Disease extends RealmObject {
     private String name;
     private int imageId;
-
 
     public Disease(String name, int imageId) {
         this.name = name;
         this.imageId = imageId;
+    }
+
+    public Disease() {
     }
 
     public Disease(String name) {
