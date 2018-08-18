@@ -20,6 +20,7 @@ import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 
 public class ResultActivity extends AppCompatActivity implements ResultContract.View {
     private TextView patientName, patientState, patientDiseases, patientDate, patientBlood;
@@ -55,7 +56,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         imageView = findViewById(R.id.imageView);
         layout = findViewById(R.id.nameLayout);
 
-        Realm realm = Realm.getDefaultInstance();
+        final Realm realm = Realm.getDefaultInstance();
         try {
             patient = realm.where(Patient.class).equalTo("id", id).findFirst();
         } finally {
@@ -68,9 +69,17 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         presenter.setView(this);
 
         diseases = presenter.createDiseases(patient);
-       // blood = presenter.createBlood(patient);
 
         setValues();
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                realm.beginTransaction();
+                patient.deleteFromRealm();
+                realm.commitTransaction();
+            }
+        });
 
     }
 

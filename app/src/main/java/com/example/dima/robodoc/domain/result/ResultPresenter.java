@@ -1,11 +1,8 @@
 package com.example.dima.robodoc.domain.result;
 
-import com.example.dima.robodoc.data.models.Blood;
+
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
-
-import java.util.ArrayList;
-
 
 public class ResultPresenter implements ResultContract.Presenter {
     ResultContract.View view;
@@ -33,5 +30,5 @@ public class ResultPresenter implements ResultContract.Presenter {
        return diseases;
 
     }
-    
+
 }
