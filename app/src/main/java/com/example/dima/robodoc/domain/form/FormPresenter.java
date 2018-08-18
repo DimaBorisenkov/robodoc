@@ -51,8 +51,16 @@ public class FormPresenter implements FormContract.Presenter{
 
     @Override
     public Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases) {
-
         patient.setState(true);
+
+        ArrayList<String> values = blood.getBlood();
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String temp : values){
+            stringBuilder.append(temp);
+            stringBuilder.append("\n");
+        }
+        patient.setBlood(stringBuilder.toString());
+
 
         for(Boolean temp : blood.getNorma()){
             if(!temp){
@@ -67,8 +75,6 @@ public class FormPresenter implements FormContract.Presenter{
                 patient.setDiseases(new RealmList<Disease>());
             }
         }
-
-
         return patient;
 
     }

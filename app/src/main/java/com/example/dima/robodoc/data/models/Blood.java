@@ -2,6 +2,7 @@ package com.example.dima.robodoc.data.models;
 
 import java.util.ArrayList;
 
+
 public class Blood {
     private String name;
     private double value;
@@ -10,6 +11,7 @@ public class Blood {
     private boolean RBCNorma, RBCUp, RBCDown;
 
     ArrayList<Boolean> norma;
+    ArrayList<String> blood;
 
     public Blood() {
     }
@@ -17,8 +19,14 @@ public class Blood {
     public Blood(String name, double value) {
         this.name = name;
         this.value = value;
+    }
 
+    public ArrayList<String> getBlood() {
+        return blood;
+    }
 
+    public void setBlood(ArrayList<String> blood) {
+        this.blood = blood;
     }
 
     public ArrayList<Boolean> getNorma() {

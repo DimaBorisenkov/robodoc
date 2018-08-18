@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.domain.result;
 
 import android.annotation.SuppressLint;
+import android.app.Person;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -18,9 +19,12 @@ import android.widget.TextView;
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
 
+import io.realm.Realm;
+
 public class ResultActivity extends AppCompatActivity implements ResultContract.View {
-    private TextView patientName, patientState, patientDiseases, patientDate;
+    private TextView patientName, patientState, patientDiseases, patientDate, patientBlood;
     private ImageView imageView;
+    private long id;
     private Patient patient;
     private String type;
     private StringBuilder diseases;
@@ -38,21 +42,33 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        buttonDelete = findViewById(R.id.buttonDelete);
         getValues();
+
+        buttonDelete = findViewById(R.id.buttonDelete);
         if(type.equals("history")) buttonDelete.setVisibility(View.VISIBLE);
 
         patientName = findViewById(R.id.textViewPatientName);
         patientState = findViewById(R.id.textViewPatientState);
         patientDiseases = findViewById(R.id.textViewPatientDiseases);
         patientDate = findViewById(R.id.textViewPatientDate);
+        patientBlood = findViewById(R.id.textViewPatientBlood);
         imageView = findViewById(R.id.imageView);
         layout = findViewById(R.id.nameLayout);
+
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            patient = realm.where(Patient.class).equalTo("id", id).findFirst();
+        } finally {
+            realm.close();
+        }
+
         resources = getResources();
         imageView.setImageDrawable(resources.getDrawable(R.layout.layer, null));
         presenter = new ResultPresenter();
         presenter.setView(this);
+
         diseases = presenter.createDiseases(patient);
+       // blood = presenter.createBlood(patient);
 
         setValues();
 
@@ -61,12 +77,17 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     @Override
     public void getValues() {
         type = getIntent().getStringExtra("type");
-        patient = (Patient) getIntent().getSerializableExtra("patient");
+        id = getIntent().getLongExtra("id",0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setValues() {
+        patientName.setText(patient.getName());
+        patientDate.setText(patient.getDate());
+        patientDiseases.setText(diseases);
+        patientBlood.setText(patient.getBlood());
+
         if (patient.getDiseases() != null) {
             drawables = new Drawable[patient.getDiseases().size() + 1];
             if (patient.isGender()) {
@@ -89,20 +110,13 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
             }
         }
 
-        patientName.setText(patient.getName());
-        patientDate.setText(patient.getDate());
-        int color;
         if (patient.isState()) {
-            color = Color.parseColor("#6664DD17");
             patientState.setText("Здоровий");
-            layout.setBackgroundColor(color);
+            layout.setBackgroundColor(Color.parseColor("#6664DD17"));
         } else {
-            color = Color.parseColor("#9DEF0407");
             patientState.setText("Хворий");
-            layout.setBackgroundColor(color);
+            layout.setBackgroundColor(Color.parseColor("#9DEF0407"));
         }
-
-        patientDiseases.setText(diseases);
 
     }
 }

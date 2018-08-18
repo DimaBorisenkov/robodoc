@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.TrainerActivity;
 import com.example.dima.robodoc.domain.result.ResultActivity;
 
 import java.util.List;
@@ -74,11 +75,10 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, patient.getName(), Toast.LENGTH_SHORT).show();
-              /*  Intent intent = new Intent(context, ResultActivity.class);
-                intent.putExtra("patient", patient);
+                Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("type", "history");
-                context.startActivity(intent);*/
+                intent.putExtra("id", patient.getId());
+                context.startActivity(intent);
             }
         });
     }

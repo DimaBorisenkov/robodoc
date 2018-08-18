@@ -75,10 +75,8 @@ public class FormFragment extends Fragment implements FormContract.View {
             public void onClick(View view) {
                 boolean checkName = presenter.checkName(name.getText().toString());
 
-                if (!checkGender)
-                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                if (!checkName)
-                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+                if (!checkGender)Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if (!checkName)Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
 
                 if (checkName && checkGender) {
                     Date date = new Date();
@@ -92,19 +90,16 @@ public class FormFragment extends Fragment implements FormContract.View {
                     if (presenter.checkFields(editTexts)) {
                         patient.setDiseases(new RealmList<Disease>());
                         patient.setState(true);
-                        //transmitValues(patient);
+                        patient.setBlood("");
                         savePatient(patient);
-
+                        transmitValues(patient);
 
                     } else {
                         Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                         RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
-                        // transmitValues(presenter.createPatient(patient, blood, diseases));
-
-                        final Patient patientObj = presenter.createPatient(patient, blood, diseases);
-                        //  transmitValues(presenter.createPatient(patient, blood, diseases));
+                        Patient patientObj = presenter.createPatient(patient, blood, diseases);
                         savePatient(patientObj);
-
+                        transmitValues(patientObj);
                     }
                 }
             }
@@ -148,10 +143,10 @@ public class FormFragment extends Fragment implements FormContract.View {
 
     @Override
     public void transmitValues(Patient patient) {
-       /* Intent intent = new Intent(getContext(), ResultActivity.class);
+        Intent intent = new Intent(getContext(), ResultActivity.class);
         intent.putExtra("type", "form");
-        intent.putExtra("patient", patient);
-        startActivity(intent);*/
+        intent.putExtra("id", patient.getId());
+        startActivity(intent);
     }
 
     @Override

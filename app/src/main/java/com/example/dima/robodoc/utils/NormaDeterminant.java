@@ -9,15 +9,17 @@ public class NormaDeterminant {
     private double bloodValue = 0;
     private Blood blood = new Blood();
     private ArrayList<Boolean> norma = new ArrayList<>();
-    public Blood check(ArrayList<Blood> bloodArrayList, boolean gender){
 
+    public Blood check(ArrayList<Blood> bloodArrayList, boolean gender){
+        ArrayList<String> values = new ArrayList<>();
         for(Blood temp : bloodArrayList) {
             bloodName = temp.getName();
             bloodValue = temp.getValue();
             selectNorma(gender);
-
+            values.add(bloodName + ": " + bloodValue);
         }
         blood.setNorma(norma);
+        blood.setBlood(values);
         return blood;
 
     }
