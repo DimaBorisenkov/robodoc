@@ -91,7 +91,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                     if (presenter.checkFields(editTexts)) {
                         patient.setDiseases(new RealmList<Disease>());
                         patient.setState(true);
-                        patient.setBlood("");
+                        patient.setBlood(new RealmList<Blood>());
                         savePatient(patient);
                         transmitValues(patient);
                         for(EditText temp : editTexts) temp.setText("");

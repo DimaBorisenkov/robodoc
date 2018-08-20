@@ -2,6 +2,7 @@ package com.example.dima.robodoc.domain;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,9 +10,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.data.models.Blood;
 import com.example.dima.robodoc.data.models.Patient;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmList;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -40,8 +45,9 @@ public class EditActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         hb = findViewById(R.id.hb);
         rbc = findViewById(R.id.rbc);
+        button = findViewById(R.id.buttonConfirm);
 
-        name.setText(patient.getName());
+        name.setText(patient.getName().trim());
 
         if(patient.isGender()) {
             text.setText("Обрана стать - чоловік");
@@ -52,6 +58,32 @@ public class EditActivity extends AppCompatActivity {
             user.setImageResource(R.drawable.woman_icon_big);
             genderBoolean = false;
         }
+
+
+
+        for(Blood temp : patient.getBlood()){
+            switch (temp.getName()){
+                case "HB":
+                    hb.setText("" + temp.getValue());
+                    break;
+                case "RBC":
+                    rbc.setText("" + temp.getValue());
+                    break;
+            }
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                realm.beginTransaction();
+                patient.setName(name.getText().toString().trim());
+                patient.setGender(genderBoolean);
+
+
+                realm.commitTransaction();
+                finish();
+            }
+        });
 
     }
 

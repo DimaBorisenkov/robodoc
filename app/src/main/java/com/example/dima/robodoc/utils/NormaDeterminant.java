@@ -4,49 +4,53 @@ import com.example.dima.robodoc.data.models.Blood;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+
 public class NormaDeterminant {
+
     private String bloodName = "";
     private double bloodValue = 0;
     private Blood blood = new Blood();
-    private ArrayList<Boolean> norma = new ArrayList<>();
+    private RealmList<Boolean> norma = new RealmList<>();
 
-    public Blood check(ArrayList<Blood> bloodArrayList, boolean gender){
-        ArrayList<String> values = new ArrayList<>();
-        for(Blood temp : bloodArrayList) {
+    public Blood check(ArrayList<Blood> bloodArrayList, boolean gender) {
+        RealmList<Blood> values = new RealmList<>();
+        for (Blood temp : bloodArrayList) {
             bloodName = temp.getName();
             bloodValue = temp.getValue();
             selectNorma(gender);
-            values.add(bloodName + ": " + bloodValue);
+            values.add(new Blood(bloodName, bloodValue));
         }
+
         blood.setNorma(norma);
         blood.setBlood(values);
         return blood;
 
     }
 
-    void selectNorma(boolean gender){
-        switch (bloodName){
+    void selectNorma(boolean gender) {
+        switch (bloodName) {
             case "HB":
-                if(gender){
-                    if(bloodValue >= 130 && bloodValue <= 160) {
+                if (gender) {
+                    if (bloodValue >= 130 && bloodValue <= 160) {
                         blood.setHBNorma(true);
                         norma.add(true);
                     } else norma.add(false);
-                    if(bloodValue < 130) blood.setHBDown(true);
-                    if(bloodValue > 160) blood.setHBUp(true);
+                    if (bloodValue < 130) blood.setHBDown(true);
+                    if (bloodValue > 160) blood.setHBUp(true);
 
                 } else {
-                    if(bloodValue >= 120 && bloodValue <= 140) {
+                    if (bloodValue >= 120 && bloodValue <= 140) {
                         blood.setHBNorma(true);
                         norma.add(true);
                     } else norma.add(false);
-                    if(bloodValue < 120) blood.setHBDown(true);
-                    if(bloodValue > 140) blood.setHBUp(true);
+                    if (bloodValue < 120) blood.setHBDown(true);
+                    if (bloodValue > 140) blood.setHBUp(true);
 
                 }
                 break;
             case "RBC":
-                if(gender){
+                if (gender) {
                     if (bloodValue >= 4 && bloodValue <= 5.1) {
                         blood.setRBCNorma(true);
                         norma.add(true);

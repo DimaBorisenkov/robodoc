@@ -49,13 +49,13 @@ public class FormPresenter implements FormContract.Presenter{
     public Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases) {
         patient.setState(true);
 
-        ArrayList<String> values = blood.getBlood();
+        /*RealmList<String> values = blood.getBlood();
         StringBuilder stringBuilder = new StringBuilder();
         for(String temp : values){
             stringBuilder.append(temp);
             stringBuilder.append("\n");
-        }
-        patient.setBlood(stringBuilder.toString());
+        }*/
+        patient.setBlood(blood.getBlood());
 
 
         for(Boolean temp : blood.getNorma()){

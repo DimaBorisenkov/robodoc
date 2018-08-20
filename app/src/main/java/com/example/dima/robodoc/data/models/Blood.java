@@ -2,16 +2,21 @@ package com.example.dima.robodoc.data.models;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
-public class Blood {
+@RealmClass
+public class Blood extends RealmObject{
+
     private String name;
     private double value;
 
     private boolean HBNorma, HBUp, HBDown;
     private boolean RBCNorma, RBCUp, RBCDown;
 
-    ArrayList<Boolean> norma;
-    ArrayList<String> blood;
+    private RealmList<Boolean> norma;
+    private RealmList<Blood> blood;
 
     public Blood() {
     }
@@ -21,19 +26,19 @@ public class Blood {
         this.value = value;
     }
 
-    public ArrayList<String> getBlood() {
+    public RealmList<Blood> getBlood() {
         return blood;
     }
 
-    public void setBlood(ArrayList<String> blood) {
+    public void setBlood(RealmList<Blood> blood) {
         this.blood = blood;
     }
 
-    public ArrayList<Boolean> getNorma() {
+    public RealmList<Boolean> getNorma() {
         return norma;
     }
 
-    public void setNorma(ArrayList<Boolean> norma) {
+    public void setNorma(RealmList<Boolean> norma) {
         this.norma = norma;
     }
 

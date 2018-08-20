@@ -20,11 +20,13 @@ public class Patient extends RealmObject {
     private long id;
     @Required
     private String name;
+    private String date;
+
     private boolean gender;
     private boolean state;
+
     private RealmList<Disease> diseases;
-    private String date;
-    private String bloodValues;
+    private RealmList<Blood> blood;
 
     public Patient(String name, String date, boolean gender,
                    boolean state, RealmList<Disease> diseases) {
@@ -46,12 +48,12 @@ public class Patient extends RealmObject {
         this.id = id;
     }
 
-    public String getBlood() {
-        return bloodValues;
+    public RealmList<Blood> getBlood() {
+        return blood;
     }
 
-    public void setBlood(String bloodValues) {
-        this.bloodValues = bloodValues;
+    public void setBlood(RealmList<Blood> blood) {
+        this.blood = blood;
     }
 
     public String getName() {
