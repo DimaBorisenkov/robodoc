@@ -47,7 +47,7 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         String check = createDiseases(patient);
 
         holder.diseasesText.setText(check);
-        holder.nameText.setText(patient.getName());
+        holder.nameText.setText(createName(patient.getName()));
         holder.dateText.setText(patient.getDate());
         holder.stateImage.setImageResource(patient.getImageStatus());
         holder.genderImage.setImageResource(patient.getImageGender());
@@ -75,8 +75,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
                 diseases.append(temp.getName().toLowerCase());
                 diseases.append(", ");
             }
-            if (diseases.length() > 35) {
-                check = diseases.substring(0, 35) + "...";
+            if (diseases.length() > 33) {
+                check = diseases.substring(0, 33) + "...";
             } else {
                 char[] message = diseases.toString().toCharArray();
                 for (int i = 0; i < message.length - 2; i++) {
@@ -85,6 +85,18 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
             }
         }
         return check;
+    }
+
+    private String createName(String name) {
+        if (name.length() > 14) {
+            char[] symbols = name.toCharArray();
+            String text = "";
+            for (int i = 0; i < 14; i++) {
+                text += symbols[i];
+            }
+            text += "...";
+            return text;
+        } else return name;
     }
 
 

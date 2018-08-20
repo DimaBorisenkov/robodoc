@@ -16,10 +16,7 @@ public class TrainerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer);
-        textView = findViewById(R.id.textView2);
-        long id = getIntent().getLongExtra("id", 0);
 
-        textView.setText("" + id);
 
     }
 

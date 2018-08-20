@@ -24,6 +24,7 @@
     <string name="sortByStatus">Статус</string>
 
     <!-- ResultActivity -->
-    <string name="delete">Видалити з історії</string>
+    <string name="delete">Видалити</string>
+    <string name="edit">Редагувати</string>
 
 </resources>
