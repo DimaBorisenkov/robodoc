@@ -2,7 +2,9 @@ package com.example.dima.robodoc.domain.result;
 
 import android.annotation.SuppressLint;
 import android.app.Person;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.CursorJoiner;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -13,11 +15,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.EditActivity;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
@@ -32,8 +36,8 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     private ResultPresenter presenter;
     private Resources resources;
     private Drawable[] drawables;
-    private Button buttonDelete;
-    private RelativeLayout layout;
+    private Button buttonDelete, buttonEdit;
+    private LinearLayout layout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -46,7 +50,11 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         getValues();
 
         buttonDelete = findViewById(R.id.buttonDelete);
-        if(type.equals("history")) buttonDelete.setVisibility(View.VISIBLE);
+        buttonEdit = findViewById(R.id.buttonEdit);
+        if (type.equals("history")) {
+            buttonDelete.setVisibility(View.VISIBLE);
+            buttonEdit.setVisibility(View.VISIBLE);
+         }
 
         patientName = findViewById(R.id.textViewPatientName);
         patientState = findViewById(R.id.textViewPatientState);
@@ -78,6 +86,17 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
                 realm.beginTransaction();
                 patient.deleteFromRealm();
                 realm.commitTransaction();
+                finish();
+            }
+        });
+
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(ResultActivity.this, EditActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
             }
         });
 
@@ -86,7 +105,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     @Override
     public void getValues() {
         type = getIntent().getStringExtra("type");
-        id = getIntent().getLongExtra("id",0);
+        id = getIntent().getLongExtra("id", 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -112,7 +131,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
             imageView.setImageDrawable(layerDrawable);
 
         } else {
-            if(patient.isGender()){
+            if (patient.isGender()) {
                 imageView.setImageResource(R.drawable.man_body);
             } else {
                 imageView.setImageResource(R.drawable.woman_body);

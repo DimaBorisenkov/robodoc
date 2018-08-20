@@ -20,7 +20,8 @@
         <activity android:name=".domain.BloodTestActivity" />
         <activity android:name=".domain.TrainerActivity" />
         <activity android:name=".domain.SimpleTestActivity" />
-        <activity android:name=".domain.result.ResultActivity"></activity>
+        <activity android:name=".domain.result.ResultActivity" />
+        <activity android:name=".domain.EditActivity"></activity>
     </application>
 
 </manifest>
