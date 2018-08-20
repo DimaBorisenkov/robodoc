@@ -14,6 +14,7 @@ public class NormaDeterminant {
     private RealmList<Boolean> norma = new RealmList<>();
 
     public Blood check(ArrayList<Blood> bloodArrayList, boolean gender) {
+
         RealmList<Blood> values = new RealmList<>();
         for (Blood temp : bloodArrayList) {
             bloodName = temp.getName();

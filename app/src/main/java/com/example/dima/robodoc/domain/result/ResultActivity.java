@@ -76,8 +76,6 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         presenter = new ResultPresenter();
         presenter.setView(this);
 
-        diseases = presenter.createDiseases(patient);
-        blood = presenter.createBlood(patient);
 
         setValues();
 
@@ -112,6 +110,9 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setValues() {
+
+        diseases = presenter.createDiseases(patient);
+        blood = presenter.createBlood(patient);
 
         patientName.setText(patient.getName());
         patientDate.setText(patient.getDate());

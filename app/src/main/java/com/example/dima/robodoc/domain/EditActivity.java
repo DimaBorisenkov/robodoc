@@ -1,5 +1,6 @@
 package com.example.dima.robodoc.domain;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +12,17 @@ import android.widget.TextView;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
+import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.domain.form.FormContract;
+import com.example.dima.robodoc.domain.form.FormPresenter;
+import com.example.dima.robodoc.utils.DiseaseDeterminant;
+import com.example.dima.robodoc.utils.NormaDeterminant;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -30,6 +39,8 @@ public class EditActivity extends AppCompatActivity {
     private int selectedId;
     private Realm realm;
     private Patient patient;
+    private FormContract.Presenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +57,11 @@ public class EditActivity extends AppCompatActivity {
         hb = findViewById(R.id.hb);
         rbc = findViewById(R.id.rbc);
         button = findViewById(R.id.buttonConfirm);
+        presenter = new FormPresenter();
 
         name.setText(patient.getName().trim());
 
-        if(patient.isGender()) {
+        if (patient.isGender()) {
             text.setText("Обрана стать - чоловік");
             user.setImageResource(R.drawable.man_icon_big);
             genderBoolean = true;
@@ -59,10 +71,8 @@ public class EditActivity extends AppCompatActivity {
             genderBoolean = false;
         }
 
-
-
-        for(Blood temp : patient.getBlood()){
-            switch (temp.getName()){
+        for (Blood temp : patient.getBlood()) {
+            switch (temp.getName()) {
                 case "HB":
                     hb.setText("" + temp.getValue());
                     break;
@@ -72,34 +82,26 @@ public class EditActivity extends AppCompatActivity {
             }
         }
 
+        final EditText[] editTexts = {hb, rbc};
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Patient newPatient = new Patient();
+                newPatient.setName(name.getText().toString().trim());
+                newPatient.setGender(genderBoolean);
+                Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
+                RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, EditActivity.this);
+                newPatient = presenter.createPatient(newPatient, blood, diseases);
+
                 realm.beginTransaction();
-                patient.setName(name.getText().toString().trim());
-                patient.setGender(genderBoolean);
-
-
+                patient = realm.copyToRealmOrUpdate(newPatient);
                 realm.commitTransaction();
                 finish();
             }
         });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void setGender() {
