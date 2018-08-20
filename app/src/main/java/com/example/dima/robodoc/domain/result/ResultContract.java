@@ -12,6 +12,9 @@ public interface ResultContract {
     interface Presenter {
 
         void setView(View view);
+
         StringBuilder createDiseases(Patient patient);
+
+        StringBuilder createBlood(Patient patient);
     }
 }

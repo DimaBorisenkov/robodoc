@@ -32,7 +32,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     private long id;
     private Patient patient;
     private String type;
-    private StringBuilder diseases;
+    private StringBuilder diseases, blood;
     private ResultPresenter presenter;
     private Resources resources;
     private Drawable[] drawables;
@@ -54,7 +54,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         if (type.equals("history")) {
             buttonDelete.setVisibility(View.VISIBLE);
             buttonEdit.setVisibility(View.VISIBLE);
-         }
+        }
 
         patientName = findViewById(R.id.textViewPatientName);
         patientState = findViewById(R.id.textViewPatientState);
@@ -76,7 +76,6 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         presenter = new ResultPresenter();
         presenter.setView(this);
 
-        diseases = presenter.createDiseases(patient);
 
         setValues();
 
@@ -111,10 +110,14 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void setValues() {
+
+        diseases = presenter.createDiseases(patient);
+        blood = presenter.createBlood(patient);
+
         patientName.setText(patient.getName());
         patientDate.setText(patient.getDate());
         patientDiseases.setText(diseases);
-        patientBlood.setText(patient.getBlood());
+        patientBlood.setText(blood);
 
         if (patient.getDiseases() != null) {
             drawables = new Drawable[patient.getDiseases().size() + 1];
@@ -146,5 +149,12 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
             layout.setBackgroundColor(Color.parseColor("#9DEF0407"));
         }
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setValues();
     }
 }
