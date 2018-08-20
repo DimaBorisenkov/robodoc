@@ -10,7 +10,7 @@ import com.example.dima.robodoc.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnBloodTest, btnTrainer, btnSimpleTest;
+    private Button btnBloodTest, btnTrainer, btnSimpleTest, btnPatientBaseActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBloodTest = findViewById(R.id.buttonBloodTestActivity);
         btnTrainer = findViewById(R.id.buttonTrainerActivity);
         btnSimpleTest = findViewById(R.id.buttonSimpleTestActivity);
+        btnPatientBaseActivity = findViewById(R.id.buttonPatientBaseActivity);
+
         btnBloodTest.setOnClickListener(this);
         btnTrainer.setOnClickListener(this);
         btnSimpleTest.setOnClickListener(this);
+        btnPatientBaseActivity.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.buttonSimpleTestActivity:
                 intent = new Intent(MainActivity.this, SimpleTestActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.buttonPatientBaseActivity:
+                intent = new Intent(MainActivity.this, PatientBaseActivity.class);
                 startActivity(intent);
                 break;
         }

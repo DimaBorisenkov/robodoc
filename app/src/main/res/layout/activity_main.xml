@@ -8,7 +8,7 @@
     tools:context=".domain.MainActivity">
 
     <LinearLayout
-        android:layout_width="260dp"
+        android:layout_width="259dp"
         android:layout_height="470dp"
         android:layout_centerInParent="true"
         android:background="@drawable/round_shape_layout"
@@ -22,22 +22,28 @@
             app:srcCompat="@drawable/blood" />
 
         <Button
-            style="@style/Button"
             android:id="@+id/buttonBloodTestActivity"
+            style="@style/Button"
             android:layout_marginTop="10dp"
             android:text="@string/bloodTest" />
 
         <Button
-            style="@style/Button"
             android:id="@+id/buttonTrainerActivity"
+            style="@style/Button"
             android:layout_marginTop="10dp"
             android:text="@string/trainer" />
 
         <Button
-            style="@style/Button"
             android:id="@+id/buttonSimpleTestActivity"
+            style="@style/Button"
             android:layout_marginTop="10dp"
             android:text="@string/simpleTest" />
+
+        <Button
+            android:id="@+id/buttonPatientBaseActivity"
+            style="@style/Button"
+            android:layout_marginTop="10dp"
+            android:text="@string/patientDB" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -64,7 +64,7 @@
 
     <style name="Button" parent="TopHorizTrueTrue">
         <item name="android:layout_width">220dp</item>
-        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">209dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:background">@drawable/round_shape_btn</item>
