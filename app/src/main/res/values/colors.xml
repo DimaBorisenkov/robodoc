@@ -7,4 +7,5 @@
     <color name="white">#ffffff</color>
     <color name="green">#6664DD17</color>
     <color name="red">#9DEF0407</color>
+    <color name="back">#fafafa</color>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -52,7 +53,7 @@
         android:layout_height="100dp"
         android:layout_alignEnd="@+id/buttonConfirm"
         android:layout_below="@+id/selectGender"
-        app:srcCompat="@color/ic_launcher_background" />
+        app:srcCompat="@color/back" />
 
 
     <Button
@@ -100,5 +101,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/radioSex"
         android:layout_marginBottom="52dp" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="309dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/radioSex"
+        android:layout_below="@+id/buttonConfirm"
+        android:layout_marginTop="10dp"
+        android:text="@string/clear" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.domain.form;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,7 +40,7 @@ public class FormFragment extends Fragment implements FormContract.View {
 
     private RadioGroup gender;
     private TextView text;
-    private Button button;
+    private Button buttonConfirm, buttonClear;
     private ImageView user;
     private boolean genderBoolean;
     private EditText name, hb, rbc;
@@ -65,19 +66,22 @@ public class FormFragment extends Fragment implements FormContract.View {
         setGender();
 
         presenter = new FormPresenter();
-        button = view.findViewById(R.id.buttonConfirm);
+        buttonConfirm = view.findViewById(R.id.buttonConfirm);
+        buttonClear = view.findViewById(R.id.buttonClear);
         hb = view.findViewById(R.id.hb);
         rbc = view.findViewById(R.id.rbc);
         name = view.findViewById(R.id.name);
         final EditText[] editTexts = {hb, rbc};
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean checkName = presenter.checkName(name.getText().toString());
 
-                if (!checkGender)Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                if (!checkName)Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+                if (!checkGender)
+                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if (!checkName)
+                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
 
                 if (checkName && checkGender) {
                     Date date = new Date();
@@ -94,7 +98,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                         patient.setBlood(new RealmList<Blood>());
                         savePatient(patient);
                         transmitValues(patient);
-                        for(EditText temp : editTexts) temp.setText("");
+                        for (EditText temp : editTexts) temp.setText("");
                         name.setText("");
 
                     } else {
@@ -103,10 +107,21 @@ public class FormFragment extends Fragment implements FormContract.View {
                         patient = presenter.createPatient(patient, blood, diseases);
                         savePatient(patient);
                         transmitValues(patient);
-                        for(EditText temp : editTexts) temp.setText("");
+                        for (EditText temp : editTexts) temp.setText("");
                         name.setText("");
                     }
                 }
+            }
+        });
+
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setImageResource(R.color.back);
+                checkGender = false;
+                name.setText("");
+                text.setText("Будь ласка, оберіть стать");
+                for (EditText temp : editTexts) temp.setText("");
             }
         });
     }
@@ -139,7 +154,6 @@ public class FormFragment extends Fragment implements FormContract.View {
                         checkGender = false;
                         break;
                 }
-
             }
         });
 

@@ -4,6 +4,7 @@
     <string name="bloodTest">Аналіз крові</string>
     <string name="trainer">Тренажер</string>
     <string name="simpleTest">Тест</string>
+    <string name="patientDB">Архів</string>
 
     <!-- FormFragment -->
     <string name="firstTab">АНКЕТА</string>
@@ -11,6 +12,7 @@
     <string name="male">Чоловік</string>
     <string name="female">Жінка</string>
     <string name="confirm">Підтвердити</string>
+    <string name="clear">Очистити</string>
 
     <!-- Blood's names -->
     <string name="hb"> HB   (Гемоглобін)</string>
@@ -26,5 +28,8 @@
     <!-- ResultActivity -->
     <string name="delete">Видалити</string>
     <string name="edit">Редагувати</string>
+    <string name="title_activity_dase">DaseActivity</string>
+    <string name="title_activity_patient_base">PatientBaseActivity</string>
+    <string name="title_activity_patient">PatientActivity</string>
 
 </resources>

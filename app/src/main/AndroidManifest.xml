@@ -21,7 +21,8 @@
         <activity android:name=".domain.TrainerActivity" />
         <activity android:name=".domain.SimpleTestActivity" />
         <activity android:name=".domain.result.ResultActivity" />
-        <activity android:name=".domain.EditActivity"></activity>
+        <activity android:name=".domain.EditActivity" />
+        <activity android:name=".domain.PatientBaseActivity" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.domain;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Blood;
@@ -21,6 +24,7 @@ import com.example.dima.robodoc.utils.NormaDeterminant;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,15 +35,16 @@ public class EditActivity extends AppCompatActivity {
 
     private RadioGroup gender;
     private TextView text;
-    private Button button;
+    private Button buttonConfirm, buttonClear;
     private ImageView user;
-    private boolean genderBoolean;
+    private boolean genderBoolean, checkGender = true;
     private EditText name, hb, rbc;
     private long patientId;
     private int selectedId;
     private Realm realm;
     private Patient patient;
     private FormContract.Presenter presenter;
+    private RelativeLayout relativeLayout;
 
 
     @Override
@@ -56,7 +61,9 @@ public class EditActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         hb = findViewById(R.id.hb);
         rbc = findViewById(R.id.rbc);
-        button = findViewById(R.id.buttonConfirm);
+        buttonConfirm = findViewById(R.id.buttonConfirm);
+        buttonClear = findViewById(R.id.buttonClear);
+        relativeLayout = findViewById(R.id.relativeLayout);
         presenter = new FormPresenter();
 
         name.setText(patient.getName().trim());
@@ -84,20 +91,43 @@ public class EditActivity extends AppCompatActivity {
 
         final EditText[] editTexts = {hb, rbc};
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Patient newPatient = new Patient();
-                newPatient.setName(name.getText().toString().trim());
-                newPatient.setGender(genderBoolean);
-                Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
-                RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, EditActivity.this);
-                newPatient = presenter.createPatient(newPatient, blood, diseases);
+                boolean checkName = presenter.checkName(name.getText().toString().trim());
 
-                realm.beginTransaction();
-                patient = realm.copyToRealmOrUpdate(newPatient);
-                realm.commitTransaction();
-                finish();
+                if (!checkGender)
+                    Toast.makeText(EditActivity.this, "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if (!checkName)
+                    Toast.makeText(EditActivity.this, "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+
+                if (checkName && checkGender) {
+
+                    Patient newPatient = new Patient();
+                    newPatient.setId(patientId);
+                    newPatient.setDate(patient.getDate());
+                    newPatient.setName(name.getText().toString().trim());
+                    newPatient.setGender(genderBoolean);
+                    Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
+                    RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, EditActivity.this);
+                    newPatient = presenter.createPatient(newPatient, blood, diseases);
+
+                    realm.beginTransaction();
+                    patient = realm.copyToRealmOrUpdate(newPatient);
+                    realm.commitTransaction();
+                    finish();
+                }
+            }
+        });
+
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setImageResource(R.color.back);
+                checkGender = false;
+                name.setText("");
+                text.setText("Будь ласка, оберіть стать");
+                for (EditText temp : editTexts) temp.setText("");
             }
         });
 
@@ -118,11 +148,13 @@ public class EditActivity extends AppCompatActivity {
                         text.setText("Обрана стать - чоловік");
                         user.setImageResource(R.drawable.man_icon_big);
                         genderBoolean = true;
+                        checkGender = true;
                         break;
                     case R.id.radioFemale:
                         text.setText("Обрана стать - жінка");
                         user.setImageResource(R.drawable.woman_icon_big);
                         genderBoolean = false;
+                        checkGender = true;
                         break;
 
                 }
