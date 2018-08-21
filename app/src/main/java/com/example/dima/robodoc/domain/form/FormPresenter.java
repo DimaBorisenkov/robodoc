@@ -1,7 +1,9 @@
 package com.example.dima.robodoc.domain.form;
 
 
+import android.content.Context;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dima.robodoc.data.models.Blood;
 import com.example.dima.robodoc.data.models.Disease;
@@ -13,7 +15,7 @@ import java.util.Date;
 
 import io.realm.RealmList;
 
-public class FormPresenter implements FormContract.Presenter{
+public class FormPresenter implements FormContract.Presenter {
 
     @Override
     public boolean checkName(String name) {
@@ -25,20 +27,19 @@ public class FormPresenter implements FormContract.Presenter{
     public boolean checkFields(EditText[] editTexts) {
         boolean check = true;
         for (EditText temp : editTexts) {
-            if (temp.getText().toString().trim().length() != 0) {
-                check = false;
-            }
+            if (temp.getText().toString().trim().length() != 0) check = false;
         }
         return check;
     }
 
+
     @Override
-    public ArrayList<Blood> createBloodArrayList(EditText [] editTexts) {
+    public ArrayList<Blood> createBloodArrayList(EditText[] editTexts) {
         ArrayList<Blood> bloodArrayList = new ArrayList<>();
         for (EditText temp : editTexts) {
             if (temp.getText().length() > 0) {
                 String name = createName(temp.getHint().toString());
-                bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString())));
+                bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString().trim())));
             }
         }
         return bloodArrayList;
@@ -50,8 +51,8 @@ public class FormPresenter implements FormContract.Presenter{
         patient.setState(true);
         patient.setBlood(blood.getBlood());
 
-        for(Boolean temp : blood.getNorma()){
-            if(!temp){
+        for (Boolean temp : blood.getNorma()) {
+            if (!temp) {
                 patient.setState(false);
             }
         }
@@ -66,6 +67,7 @@ public class FormPresenter implements FormContract.Presenter{
         return patient;
 
     }
+
     @Override
     public String createName(String hint) {
         String name = "";
