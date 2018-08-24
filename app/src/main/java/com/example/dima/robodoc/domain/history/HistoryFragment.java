@@ -22,12 +22,14 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 
 public class HistoryFragment extends Fragment implements HistoryContract.View{
     private PatientsAdapter patientsAdapter;
     private RecyclerView recyclerView;
     private HistoryContract.Presenter historyPresenter;
-    public Realm realm = Realm.getDefaultInstance();
+
+    public Realm realm;
     private RealmHelper realmHelper;
     private RealmChangeListener realmChangeListener;
 
@@ -43,6 +45,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View{
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
+        RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
+        realm = Realm.getInstance(configFirst);
         realmHelper = new RealmHelper(realm);
         realmHelper.retrieveFromDB();
 

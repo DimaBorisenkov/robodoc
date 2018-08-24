@@ -24,6 +24,7 @@ import com.example.dima.robodoc.data.models.Patient;
 import com.example.dima.robodoc.domain.EditActivity;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 
 public class ResultActivity extends AppCompatActivity implements ResultContract.View {
@@ -64,7 +65,8 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         imageView = findViewById(R.id.imageView);
         layout = findViewById(R.id.nameLayout);
 
-        final Realm realm = Realm.getDefaultInstance();
+        RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
+        final Realm realm = Realm.getInstance(configFirst);
         try {
             patient = realm.where(Patient.class).equalTo("id", id).findFirst();
         } finally {
