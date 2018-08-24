@@ -64,10 +64,10 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHo
         });
     }
 
-    private String createDiseases(Patient patient){
+    private String createDiseases(Patient patient) {
         StringBuilder diseases = new StringBuilder();
         String check = "";
-        if(patient.getDiseases() == null || patient.getDiseases().size() == 0){
+        if (patient.getDiseases() == null || patient.getDiseases().size() == 0) {
             check = "Хвороб немає";
         } else {
             diseases.append("Хвороби: ");

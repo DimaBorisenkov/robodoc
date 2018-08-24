@@ -50,6 +50,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_form);
+
         RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
         setGender();
 
