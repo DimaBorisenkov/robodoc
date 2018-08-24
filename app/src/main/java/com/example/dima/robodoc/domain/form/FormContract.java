@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.domain.form;
 
 
+import android.content.Context;
 import android.widget.EditText;
 
 import com.example.dima.robodoc.data.models.Blood;
@@ -32,5 +33,7 @@ public interface FormContract {
         ArrayList<Blood> createBloodArrayList(EditText [] editTexts);
 
         Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases);
+
+
     }
 }

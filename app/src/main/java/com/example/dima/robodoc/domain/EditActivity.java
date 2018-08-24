@@ -108,14 +108,17 @@ public class EditActivity extends AppCompatActivity {
                     newPatient.setDate(patient.getDate());
                     newPatient.setName(name.getText().toString().trim());
                     newPatient.setGender(genderBoolean);
-                    Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
-                    RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, EditActivity.this);
-                    newPatient = presenter.createPatient(newPatient, blood, diseases);
-
-                    realm.beginTransaction();
-                    patient = realm.copyToRealmOrUpdate(newPatient);
-                    realm.commitTransaction();
-                    finish();
+                    try {
+                        Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
+                        RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, EditActivity.this);
+                        newPatient = presenter.createPatient(newPatient, blood, diseases);
+                        realm.beginTransaction();
+                        patient = realm.copyToRealmOrUpdate(newPatient);
+                        realm.commitTransaction();
+                        finish();
+                    } catch (Exception e){
+                        Toast.makeText(EditActivity.this, "Поле не повинно містити лише крапку", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

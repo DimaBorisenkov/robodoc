@@ -98,17 +98,20 @@ public class FormFragment extends Fragment implements FormContract.View {
                         patient.setBlood(new RealmList<Blood>());
                         savePatient(patient);
                         transmitValues(patient);
-                        for (EditText temp : editTexts) temp.setText("");
-                        name.setText("");
+                        setDefault(editTexts);
 
                     } else {
-                        Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
-                        RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
-                        patient = presenter.createPatient(patient, blood, diseases);
-                        savePatient(patient);
-                        transmitValues(patient);
-                        for (EditText temp : editTexts) temp.setText("");
-                        name.setText("");
+                        //  EditText [] checkedEditTexts = presenter.checkEmpty(ed)
+                        try {
+                            Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
+                            RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
+                            patient = presenter.createPatient(patient, blood, diseases);
+                            savePatient(patient);
+                            transmitValues(patient);
+                            setDefault(editTexts);
+                        } catch (Exception e){
+                            Toast.makeText(getContext(), "Поле не повинно містити лише крапку", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -117,13 +120,18 @@ public class FormFragment extends Fragment implements FormContract.View {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setImageResource(R.color.back);
-                checkGender = false;
-                name.setText("");
-                text.setText("Будь ласка, оберіть стать");
-                for (EditText temp : editTexts) temp.setText("");
+                setDefault(editTexts);
             }
         });
+    }
+
+
+    public void setDefault(EditText... editTexts) {
+        user.setImageResource(R.color.back);
+        checkGender = false;
+        name.setText("");
+        text.setText("Будь ласка, оберіть стать");
+        for (EditText temp : editTexts) temp.setText("");
     }
 
     @Override
