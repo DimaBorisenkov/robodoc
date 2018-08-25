@@ -40,6 +40,8 @@ public class AddPatientActivity extends AppCompatActivity {
         RealmConfiguration configurationFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
         realmFirst = Realm.getInstance(configurationFirst);
 
+        RealmConfiguration configurationSecond = new RealmConfiguration.Builder().name("secondrealm.realm").build();
+        realmSecond = Realm.getInstance(configurationSecond);
 
         name = findViewById(R.id.nameEdit);
         dataBirth = findViewById(R.id.dataBirthEdit);
@@ -71,6 +73,15 @@ public class AddPatientActivity extends AppCompatActivity {
             }
 
             history.setText(stringBuilder);
+        }
+
+        if (type.equals("item")) {
+            long id = getIntent().getLongExtra("id", 0);
+            patient = realmSecond.where(Patient.class).equalTo("id", id).findFirst();
+            name.setText(patient.getName());
+            dataBirth.setText(String.valueOf(patient.getAge()));
+            address.setText(patient.getAddress());
+            history.setText(patient.getHistory());
         }
 
         dataBirth.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +130,8 @@ public class AddPatientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 createPatient(editTexts);
                 finish();
+
+
             }
         });
 
@@ -127,29 +140,31 @@ public class AddPatientActivity extends AppCompatActivity {
     void createPatient(EditText... editTexts) {
         RealmConfiguration configurationSecond = new RealmConfiguration.Builder().name("secondrealm.realm").build();
         realmSecond = Realm.getInstance(configurationSecond);
-        patient = new Patient();
+        Patient newPatient = new Patient();
 
-        patient.setName(editTexts[0].getText().toString());
-        patient.setAddress(editTexts[1].getText().toString());
-        patient.setHistory(editTexts[2].getText().toString());
+        newPatient.setName(editTexts[0].getText().toString());
+        newPatient.setAddress(editTexts[1].getText().toString());
+        newPatient.setHistory(editTexts[2].getText().toString());
+        newPatient.setAge(createAge());
 
-        patient.setAge(createAge());
+        if (!type.equals("item")) {
+            Number current = realmSecond.where(Patient.class).max("id");
+            long nextId;
+            if (current == null) nextId = 1;
+            else nextId = current.intValue() + 1;
+            newPatient.setId(nextId);
+        } else {
+            newPatient.setId(patient.getId());
+        }
 
         realmSecond.beginTransaction();
-        Number current = realmSecond.where(Patient.class).max("id");
-        long nextId;
-        if (current == null) nextId = 1;
-        else nextId = current.intValue() + 1;
-        patient.setId(nextId);
-
-        realmSecond.copyToRealmOrUpdate(patient);
+        patient = realmSecond.copyToRealmOrUpdate(newPatient);
         realmSecond.commitTransaction();
 
     }
 
 
     int createAge() {
-
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         int year = gregorianCalendar.get(Calendar.YEAR);
         int month = gregorianCalendar.get(Calendar.MONTH);

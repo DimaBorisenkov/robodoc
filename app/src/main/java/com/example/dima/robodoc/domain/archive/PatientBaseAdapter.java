@@ -1,25 +1,15 @@
 package com.example.dima.robodoc.domain.archive;
 
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dima.robodoc.R;
-import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
-import com.example.dima.robodoc.domain.history.PatientsAdapter;
-import com.example.dima.robodoc.domain.result.ResultActivity;
 
 import java.util.List;
 
@@ -63,6 +53,7 @@ public class PatientBaseAdapter extends RecyclerView.Adapter<PatientBaseAdapter.
                 context.startActivity(intent);
             }
         });
+
     }
 
     private String createHistoryAndAddress(String str) {
