@@ -17,7 +17,6 @@ import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import io.realm.Realm;
@@ -119,6 +118,7 @@ public class AddPatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createPatient(editTexts);
+                finish();
             }
         });
 
@@ -134,7 +134,16 @@ public class AddPatientActivity extends AppCompatActivity {
         patient.setHistory(editTexts[2].getText().toString());
         patient.setAge(createAge());
 
-        dataBirth.setText(String.valueOf(patient.getAge()));
+        realmSecond.beginTransaction();
+        Number current = realmSecond.where(Patient.class).max("id");
+        long nextId;
+        if (current == null) nextId = 1;
+        else nextId = current.intValue() + 1;
+        patient.setId(nextId);
+
+        realmSecond.copyToRealmOrUpdate(patient);
+        realmSecond.commitTransaction();
+
     }
 
 
@@ -144,7 +153,6 @@ public class AddPatientActivity extends AppCompatActivity {
         int year = gregorianCalendar.get(Calendar.YEAR);
         int month = gregorianCalendar.get(Calendar.MONTH);
         int day = gregorianCalendar.get(Calendar.DAY_OF_MONTH);
-
 
         gregorianCalendar.set(patientYear, patientMonth, patientDay);
         int age = year - gregorianCalendar.get(Calendar.YEAR);
