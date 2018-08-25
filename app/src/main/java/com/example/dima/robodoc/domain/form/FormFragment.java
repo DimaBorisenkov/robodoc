@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 
 
@@ -101,7 +102,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                         setDefault(editTexts);
 
                     } else {
-                        //  EditText [] checkedEditTexts = presenter.checkEmpty(ed)
+
                         try {
                             Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                             RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
@@ -194,7 +195,8 @@ public class FormFragment extends Fragment implements FormContract.View {
     }
 
     void savePatient(Patient patient) {
-        realm = new HistoryFragment().realm;
+        RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
+        realm = Realm.getInstance(configFirst);
 
         Number current = realm.where(Patient.class).max("id");
         long nextId;

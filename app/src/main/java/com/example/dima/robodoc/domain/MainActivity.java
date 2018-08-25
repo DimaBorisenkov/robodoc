@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dima.robodoc.R;
+import com.example.dima.robodoc.domain.archive.PatientBaseActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 

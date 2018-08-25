@@ -22,7 +22,11 @@
         <activity android:name=".domain.SimpleTestActivity" />
         <activity android:name=".domain.result.ResultActivity" />
         <activity android:name=".domain.EditActivity" />
-        <activity android:name=".domain.PatientBaseActivity" />
+        <activity android:name=".domain.archive.PatientBaseActivity" />
+        <activity android:name=".domain.archive.AddPatientActivity" />
+        <activity
+            android:name=".domain.archive.ResultBaseActivity"
+            android:label="@string/title_activity_result_base"></activity>
     </application>
 
 </manifest>

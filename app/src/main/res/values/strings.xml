@@ -31,5 +31,14 @@
     <string name="title_activity_dase">DaseActivity</string>
     <string name="title_activity_patient_base">PatientBaseActivity</string>
     <string name="title_activity_patient">PatientActivity</string>
+    <string name="title_activity_archive">ArchiveActivity</string>
+
+
+    <!--Add Activity -->
+    <string name="birthDate">Дата народження</string>
+    <string name="address">Адреса</string>
+    <string name="history">Історія хвороби</string>
+    <string name="title_activity_result_base">ResultBaseActivity</string>
+
 
 </resources>

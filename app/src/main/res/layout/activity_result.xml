@@ -100,22 +100,30 @@
     <Button
         android:id="@+id/buttonDelete"
         android:layout_width="115dp"
-        android:layout_height="37dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="22dp"
-        android:layout_marginStart="11dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginStart="13dp"
         android:text="@string/delete"
         android:visibility="invisible" />
 
     <Button
         android:id="@+id/buttonEdit"
         android:layout_width="115dp"
-        android:layout_height="37dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="30dp"
+        android:layout_above="@+id/buttonDelete"
         android:layout_alignStart="@+id/buttonDelete"
-        android:layout_marginBottom="68dp"
         android:text="@string/edit"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonTransmit"
+        android:layout_width="115dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/buttonEdit"
+        android:layout_alignStart="@+id/buttonDelete"
+        android:text="перенести"
+        android:visibility="invisible" />
 
 </RelativeLayout>

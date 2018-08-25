@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 
 public class EditActivity extends AppCompatActivity {
@@ -44,18 +45,17 @@ public class EditActivity extends AppCompatActivity {
     private Realm realm;
     private Patient patient;
     private FormContract.Presenter presenter;
-    private RelativeLayout relativeLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_form);
 
+        RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
         setGender();
 
         patientId = getIntent().getLongExtra("id", 0);
-        realm = Realm.getDefaultInstance();
+        realm = Realm.getInstance(configFirst);
         patient = realm.where(Patient.class).equalTo("id", patientId).findFirst();
 
         name = findViewById(R.id.name);
@@ -63,7 +63,7 @@ public class EditActivity extends AppCompatActivity {
         rbc = findViewById(R.id.rbc);
         buttonConfirm = findViewById(R.id.buttonConfirm);
         buttonClear = findViewById(R.id.buttonClear);
-        relativeLayout = findViewById(R.id.relativeLayout);
+
         presenter = new FormPresenter();
 
         name.setText(patient.getName().trim());

@@ -1,11 +1,8 @@
 package com.example.dima.robodoc.data.models;
 
-
 import android.graphics.Color;
 
 import com.example.dima.robodoc.R;
-
-import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -21,6 +18,10 @@ public class Patient extends RealmObject {
     @Required
     private String name;
     private String date;
+    private String address;
+    private String history;
+
+    private int age;
 
     private boolean gender;
     private boolean state;
@@ -28,8 +29,7 @@ public class Patient extends RealmObject {
     private RealmList<Disease> diseases;
     private RealmList<Blood> blood;
 
-    public Patient(String name, String date, boolean gender,
-                   boolean state, RealmList<Disease> diseases) {
+    public Patient(String name, String date, boolean gender, boolean state, RealmList<Disease> diseases) {
         this.name = name;
         this.date = date;
         this.gender = gender;
@@ -38,6 +38,13 @@ public class Patient extends RealmObject {
     }
 
     public Patient() {
+    }
+
+    public Patient(String name, String address, String history, int age) {
+        this.name = name;
+        this.address = address;
+        this.history = history;
+        this.age = age;
     }
 
     public long getId() {
@@ -109,5 +116,29 @@ public class Patient extends RealmObject {
     public int getImageStatus() {
         if (this.state) return R.drawable.healthy;
         else return R.drawable.unhealthy;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
