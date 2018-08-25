@@ -28,8 +28,7 @@ public class ResultBaseActivity extends Activity {
         setContentView(R.layout.activity_result_base);
 
         CustomScrollView myScrollView = findViewById(R.id.myScroll);
-        /*myScrollView.setEnableScrolling(false); // disable scrolling*/
-        myScrollView.setEnableScrolling(true); // enable scrolling
+        myScrollView.setEnableScrolling(true);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().name("secondrealm.realm").build();
         realm = Realm.getInstance(realmConfiguration);
@@ -41,11 +40,6 @@ public class ResultBaseActivity extends Activity {
         age = findViewById(R.id.ageTextView);
         address = findViewById(R.id.addressTextView);
         history = findViewById(R.id.historyTextView);
-
-        name.setText("Ім'я: " + patient.getName());
-        age.setText("Вік: " + String.valueOf(patient.getAge()));
-        address.setText("Адреса: " + patient.getAddress());
-        history.setText("Історія хвороби:" + "\n" + patient.getHistory());
 
         delete = findViewById(R.id.deleteBtn);
         edit = findViewById(R.id.editBtn);
@@ -72,4 +66,16 @@ public class ResultBaseActivity extends Activity {
 
     }
 
+    private void setValues(){
+        name.setText("Ім'я: " + patient.getName());
+        age.setText("Вік: " + String.valueOf(patient.getAge()));
+        address.setText("Адреса: " + patient.getAddress());
+        history.setText("Історія хвороби: "  + patient.getHistory());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setValues();
+    }
 }

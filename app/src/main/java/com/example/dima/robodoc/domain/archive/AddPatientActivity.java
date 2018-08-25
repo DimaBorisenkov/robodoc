@@ -17,29 +17,29 @@ import com.example.dima.robodoc.data.models.Disease;
 import com.example.dima.robodoc.data.models.Patient;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class AddPatientActivity extends AppCompatActivity {
+public class AddPatientActivity extends AppCompatActivity implements AddPatientContract.View {
     private Realm realmFirst, realmSecond;
     private EditText name, address, history;
     private TextView dataBirth;
     private Button btnConfirm, btnClear;
-    private String type;
+    private String type, age;
     private Patient patient;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private int patientDay, patientMonth, patientYear;
+    private AddPatientContract.Presenter presenter;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
 
         RealmConfiguration configurationFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
         realmFirst = Realm.getInstance(configurationFirst);
-
         RealmConfiguration configurationSecond = new RealmConfiguration.Builder().name("secondrealm.realm").build();
         realmSecond = Realm.getInstance(configurationSecond);
 
@@ -49,40 +49,9 @@ public class AddPatientActivity extends AppCompatActivity {
         history = findViewById(R.id.historyEdit);
         btnClear = findViewById(R.id.clearBtn);
         btnConfirm = findViewById(R.id.addBtn);
+        presenter = new AddPatientPresenter();
 
         final EditText[] editTexts = {name, address, history};
-
-        type = getIntent().getStringExtra("type");
-        if (type.equals("result")) {
-            patient = realmFirst.where(Patient.class).equalTo("id", getIntent().getLongExtra("id", 0)).findFirst();
-            name.setText(patient.getName());
-            StringBuilder stringBuilder = new StringBuilder();
-            if (patient.getDiseases() != null && patient.getDiseases().size() > 0) {
-                for (Disease temp : patient.getDiseases()) {
-                    stringBuilder.append(temp.getName());
-                    stringBuilder.append("\n");
-                }
-
-            }
-
-            if (patient.getBlood() != null && patient.getBlood().size() > 0) {
-                for (Blood temp : patient.getBlood()) {
-                    stringBuilder.append(temp.getName() + ": " + temp.getValue());
-                    stringBuilder.append("\n");
-                }
-            }
-
-            history.setText(stringBuilder);
-        }
-
-        if (type.equals("item")) {
-            long id = getIntent().getLongExtra("id", 0);
-            patient = realmSecond.where(Patient.class).equalTo("id", id).findFirst();
-            name.setText(patient.getName());
-            dataBirth.setText(String.valueOf(patient.getAge()));
-            address.setText(patient.getAddress());
-            history.setText(patient.getHistory());
-        }
 
         dataBirth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +77,6 @@ public class AddPatientActivity extends AppCompatActivity {
                 patientMonth = month;
                 patientDay = day;
                 patientYear = year;
-
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
                 dataBirth.setText(date);
@@ -119,7 +87,6 @@ public class AddPatientActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 for (EditText temp : editTexts) temp.setText("");
                 dataBirth.setText("Дата нарождення");
             }
@@ -128,24 +95,50 @@ public class AddPatientActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createPatient(editTexts);
+                savePatient(editTexts);
                 finish();
-
-
             }
         });
 
     }
 
-    void createPatient(EditText... editTexts) {
-        RealmConfiguration configurationSecond = new RealmConfiguration.Builder().name("secondrealm.realm").build();
-        realmSecond = Realm.getInstance(configurationSecond);
-        Patient newPatient = new Patient();
+    @Override
+    public void setValues() {
+        type = getIntent().getStringExtra("type");
+        if (type.equals("result")) {
+            patient = realmFirst.where(Patient.class).equalTo("id", getIntent().getLongExtra("id", 0)).findFirst();
+            name.setText(patient.getName());
+            StringBuilder stringBuilder = new StringBuilder();
+            if (patient.getDiseases() != null && patient.getDiseases().size() > 0) {
+                for (Disease temp : patient.getDiseases()) {
+                    stringBuilder.append(temp.getName());
+                    stringBuilder.append("\n");
+                }
+            }
+            if (patient.getBlood() != null && patient.getBlood().size() > 0) {
+                for (Blood temp : patient.getBlood()) {
+                    stringBuilder.append(temp.getName() + ": " + temp.getValue());
+                    stringBuilder.append("\n");
+                }
+            }
+            history.setText(stringBuilder);
+        }
 
-        newPatient.setName(editTexts[0].getText().toString());
-        newPatient.setAddress(editTexts[1].getText().toString());
-        newPatient.setHistory(editTexts[2].getText().toString());
-        newPatient.setAge(createAge());
+        if (type.equals("item")) {
+            long id = getIntent().getLongExtra("id", 0);
+            patient = realmSecond.where(Patient.class).equalTo("id", id).findFirst();
+            name.setText(patient.getName());
+            age = String.valueOf(patient.getAge());
+            dataBirth.setText(age);
+            address.setText(patient.getAddress());
+            history.setText(patient.getHistory());
+        }
+
+    }
+
+    @Override
+    public void savePatient(EditText... editTexts) {
+        Patient newPatient = presenter.createPatient(editTexts, patientYear, patientMonth, patientDay, age);
 
         if (!type.equals("item")) {
             Number current = realmSecond.where(Patient.class).max("id");
@@ -153,35 +146,18 @@ public class AddPatientActivity extends AppCompatActivity {
             if (current == null) nextId = 1;
             else nextId = current.intValue() + 1;
             newPatient.setId(nextId);
-        } else {
-            newPatient.setId(patient.getId());
-        }
+        } else newPatient.setId(patient.getId());
+
 
         realmSecond.beginTransaction();
         patient = realmSecond.copyToRealmOrUpdate(newPatient);
         realmSecond.commitTransaction();
-
     }
 
-
-    int createAge() {
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        int year = gregorianCalendar.get(Calendar.YEAR);
-        int month = gregorianCalendar.get(Calendar.MONTH);
-        int day = gregorianCalendar.get(Calendar.DAY_OF_MONTH);
-
-        if (patientYear != 0 && patientMonth != 0 && patientDay != 0) {
-            gregorianCalendar.set(patientYear, patientMonth, patientDay);
-            int age = year - gregorianCalendar.get(Calendar.YEAR);
-
-            if ((month < gregorianCalendar.get(Calendar.MONTH))
-                    || ((month == gregorianCalendar.get(Calendar.MONTH)) &&
-                    (day < gregorianCalendar.get(Calendar.DAY_OF_MONTH)))) {
-                --age;
-            }
-
-            return age;
-
-        } else return 0;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setValues();
     }
 }
+
