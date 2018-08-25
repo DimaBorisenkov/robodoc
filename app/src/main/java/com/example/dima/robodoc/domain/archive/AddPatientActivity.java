@@ -132,6 +132,7 @@ public class AddPatientActivity extends AppCompatActivity {
         patient.setName(editTexts[0].getText().toString());
         patient.setAddress(editTexts[1].getText().toString());
         patient.setHistory(editTexts[2].getText().toString());
+
         patient.setAge(createAge());
 
         realmSecond.beginTransaction();
@@ -154,19 +155,18 @@ public class AddPatientActivity extends AppCompatActivity {
         int month = gregorianCalendar.get(Calendar.MONTH);
         int day = gregorianCalendar.get(Calendar.DAY_OF_MONTH);
 
-        gregorianCalendar.set(patientYear, patientMonth, patientDay);
-        int age = year - gregorianCalendar.get(Calendar.YEAR);
+        if (patientYear != 0 && patientMonth != 0 && patientDay != 0) {
+            gregorianCalendar.set(patientYear, patientMonth, patientDay);
+            int age = year - gregorianCalendar.get(Calendar.YEAR);
 
-        if ((month < gregorianCalendar.get(Calendar.MONTH))
-                || ((month == gregorianCalendar.get(Calendar.MONTH)) &&
-                (day < gregorianCalendar.get(Calendar.DAY_OF_MONTH)))) {
-            --age;
-        }
+            if ((month < gregorianCalendar.get(Calendar.MONTH))
+                    || ((month == gregorianCalendar.get(Calendar.MONTH)) &&
+                    (day < gregorianCalendar.get(Calendar.DAY_OF_MONTH)))) {
+                --age;
+            }
 
+            return age;
 
-        if (age < 0) throw new IllegalArgumentException("Age < 0");
-        return age;
-
-
+        } else return 0;
     }
 }

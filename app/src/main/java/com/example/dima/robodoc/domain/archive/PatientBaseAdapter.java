@@ -46,15 +46,14 @@ public class PatientBaseAdapter extends RecyclerView.Adapter<PatientBaseAdapter.
     }
 
 
-
     @Override
     public void onBindViewHolder(final PatientBaseAdapter.ViewHolder holder, int position) {
         final Patient patient = patients.get(position);
 
         holder.nameText.setText(createName(patient.getName()));
-        holder.addressText.setText(patient.getAddress());
+        holder.addressText.setText(createHistoryAndAddress(patient.getAddress()));
         holder.ageText.setText(String.valueOf(patient.getAge()));
-        holder.historyText.setText(createHistory(patient.getHistory()));
+        holder.historyText.setText(createHistoryAndAddress(patient.getHistory()));
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +63,13 @@ public class PatientBaseAdapter extends RecyclerView.Adapter<PatientBaseAdapter.
         });
     }
 
-    private String createHistory(String history) {
+    private String createHistoryAndAddress(String str) {
         StringBuilder stringBuilder = new StringBuilder();
-        if(history.length() > 15){
-            char [] symbols = history.toCharArray();
-            for(int i = 0; i < 15; i++){
-                stringBuilder.append(symbols[i]);
-            }
-        }
-        return stringBuilder.toString();
+        if (str.length() > 30) {
+            char[] symbols = str.toCharArray();
+            for (int i = 0; i < 30; i++) stringBuilder.append(symbols[i]);
+            return stringBuilder.toString();
+        } else return str;
     }
 
     private String createName(String name) {
