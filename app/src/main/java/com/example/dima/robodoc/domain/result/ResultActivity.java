@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
 import com.example.dima.robodoc.domain.EditActivity;
+import com.example.dima.robodoc.domain.archive.AddPatientActivity;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -37,7 +38,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     private ResultPresenter presenter;
     private Resources resources;
     private Drawable[] drawables;
-    private Button buttonDelete, buttonEdit;
+    private Button buttonDelete, buttonEdit, buttonTransmit;
     private LinearLayout layout;
 
 
@@ -52,9 +53,11 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
 
         buttonDelete = findViewById(R.id.buttonDelete);
         buttonEdit = findViewById(R.id.buttonEdit);
+        buttonTransmit = findViewById(R.id.buttonTransmit);
         if (type.equals("history")) {
             buttonDelete.setVisibility(View.VISIBLE);
             buttonEdit.setVisibility(View.VISIBLE);
+            buttonTransmit.setVisibility(View.VISIBLE);
         }
 
         patientName = findViewById(R.id.textViewPatientName);
@@ -98,6 +101,16 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
                 intent.putExtra("id", id);
                 startActivity(intent);
 
+            }
+        });
+
+        buttonTransmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ResultActivity.this, AddPatientActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("type", "result");
+                startActivity(intent);
             }
         });
 

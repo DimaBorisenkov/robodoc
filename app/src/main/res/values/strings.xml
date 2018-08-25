@@ -35,7 +35,6 @@
 
 
     <!--Add Activity -->
-    <string name="name">Ім'я</string>
     <string name="birthDate">Дата народження</string>
     <string name="address">Адреса</string>
     <string name="history">Історія хвороби</string>

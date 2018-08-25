@@ -53,6 +53,7 @@ public class PatientBaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PatientBaseActivity.this, AddPatientActivity.class);
+                intent.putExtra("type", "base");
                 startActivity(intent);
             }
         });
