@@ -58,7 +58,9 @@ public class PatientBaseAdapter extends RecyclerView.Adapter<PatientBaseAdapter.
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, patient.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ResultBaseActivity.class);
+                intent.putExtra("id", patient.getId());
+                context.startActivity(intent);
             }
         });
     }

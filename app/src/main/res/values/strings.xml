@@ -38,6 +38,7 @@
     <string name="birthDate">Дата народження</string>
     <string name="address">Адреса</string>
     <string name="history">Історія хвороби</string>
+    <string name="title_activity_result_base">ResultBaseActivity</string>
 
 
 </resources>
