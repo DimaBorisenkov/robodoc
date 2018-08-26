@@ -40,5 +40,9 @@
     <string name="history">Історія хвороби</string>
     <string name="title_activity_result_base">ResultBaseActivity</string>
 
+    <!--Diseases' names-->
+    <string name="dehydration">Зневоднення</string>
+    <string name="bloodClotting">Згущення крові</string>
+
 
 </resources>
