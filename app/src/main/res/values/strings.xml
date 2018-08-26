@@ -52,6 +52,16 @@
     <!--Diseases' names-->
     <string name="dehydration">Зневоднення</string>
     <string name="bloodClotting">Згущення крові</string>
+    <string name="vitaminsStomach">Недостаток вітамінів та проблеми з шлунком</string>
+    <string name="anemia">Анемія</string>
+    <string name="moles">Новоутворення</string>
+    <string name="kidneys">Захворювання нирок</string>
+    <string name="hemorrhage">Крововтрата</string>
+    <string name="leukemia">Лейкоз</string>
+    <string name="virus">Вірусне захворювання</string>
+    <string name="autoimmune">Ауто-імунні захворювання</string>
+    <string name="liver">Захворювання печінки</string>
+    <string name="typhus">Тиф</string>
 
 
 </resources>
