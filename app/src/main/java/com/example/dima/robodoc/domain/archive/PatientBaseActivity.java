@@ -3,18 +3,14 @@ package com.example.dima.robodoc.domain.archive;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.dima.robodoc.R;
-import com.example.dima.robodoc.data.models.Patient;
 import com.example.dima.robodoc.data.realm.RealmHelper;
-import com.example.dima.robodoc.domain.history.HistoryPresenter;
-import com.example.dima.robodoc.domain.history.PatientsAdapter;
-
-import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -43,13 +39,6 @@ public class PatientBaseActivity extends AppCompatActivity {
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-       /* ArrayList<Patient> arrayList = new ArrayList<>();
-        arrayList.add(new Patient("dfs", "dfsdf", "dfs", 5));
-        arrayList.add(new Patient("dfs", "dfsdf", "dfs", 5));
-        arrayList.add(new Patient("dfs", "dfsdf", "dfs", 5));
-        arrayList.add(new Patient("dfs", "dfsdf", "dfs", 5));
-        arrayList.add(new Patient("dfs", "dfsdf", "dfs", 5));*/
-
         patientsAdapter = new PatientBaseAdapter(realmHelper.refresh(), this, recyclerView);
         recyclerView.setAdapter(patientsAdapter);
 
@@ -72,10 +61,19 @@ public class PatientBaseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 
 
-    public void refresh(){
+    private void refresh(){
         patientsAdapter = new PatientBaseAdapter(realmHelper.refresh(), this, recyclerView);
         recyclerView.setAdapter(patientsAdapter);
     }

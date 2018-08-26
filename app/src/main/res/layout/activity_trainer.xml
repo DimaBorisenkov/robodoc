@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,13 +7,175 @@
     tools:context=".domain.TrainerActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewSelectGender"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="187dp"
-        android:text="Trainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/selectGender"
+        android:textSize="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textStyle="bold" />
 
-</android.support.constraint.ConstraintLayout>
+    <RadioGroup
+        android:id="@+id/radioSexGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/female" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonCreate"
+        android:layout_width="361dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:layout_marginLeft="15dp"
+        android:text="Створити аналіз"
+        android:textColor="@color/white"
+        android:background="@color/colorRed"
+        android:textSize="10dp"/>
+
+    <Button
+        android:id="@+id/buttonDiseaseConfirm"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textViewSelectGender"
+        android:layout_marginBottom="11dp"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:text="@string/confirm" />
+
+    <RadioGroup
+        android:id="@+id/diseasesGroup"
+        android:layout_width="176dp"
+        android:layout_height="372dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textViewSelectGender"
+        android:layout_marginTop="126dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonDehydration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dehydration" />
+
+        <RadioButton
+            android:id="@+id/radioButtonBloodClotting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bloodClotting" />
+
+        <RadioButton
+            android:id="@+id/radioButtonVitaminStomach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/vitaminsStomach" />
+
+        <RadioButton
+            android:id="@+id/radioButtonAnemia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/anemia" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMoles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/moles" />
+
+        <RadioButton
+            android:id="@+id/radioButtonKidneys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/kidneys" />
+
+        <RadioButton
+            android:id="@+id/radioButtonHemorrhage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hemorrhage" />
+
+        <RadioButton
+            android:id="@+id/radioButtonLeukemia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/leukemia" />
+
+        <RadioButton
+            android:id="@+id/radioButtonVirus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/virus" />
+
+        <RadioButton
+            android:id="@+id/radioButtonAutoimmune"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/autoimmune" />
+
+        <RadioButton
+            android:id="@+id/radioButtonLiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/liver" />
+
+        <RadioButton
+            android:id="@+id/radioButtonTyphus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/typhus" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="159dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/buttonDiseaseConfirm"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textViewBloodValues"
+        android:layout_width="140dp"
+        android:layout_height="364dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/diseasesGroup"
+        android:layout_marginEnd="20dp"
+        android:text="" />
+
+</RelativeLayout>

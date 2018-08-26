@@ -1,6 +1,7 @@
 package com.example.dima.robodoc.data.models;
 
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 
@@ -8,6 +9,8 @@ import io.realm.annotations.RealmClass;
 public class Disease extends RealmObject {
     private String name;
     private int imageId;
+    private RealmList<Blood> bloodRealmList;
+    private int number;
 
     public Disease(String name, int imageId) {
         this.name = name;
@@ -35,5 +38,21 @@ public class Disease extends RealmObject {
 
     public void setImageId(int imageId) {
         this.imageId = imageId;
+    }
+
+    public RealmList<Blood> getBloodRealmList() {
+        return bloodRealmList;
+    }
+
+    public void setBloodRealmList(RealmList<Blood> bloodRealmList) {
+        this.bloodRealmList = bloodRealmList;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

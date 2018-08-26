@@ -1,7 +1,5 @@
 package com.example.dima.robodoc.domain;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +19,6 @@ import com.example.dima.robodoc.domain.form.FormPresenter;
 import com.example.dima.robodoc.utils.DiseaseDeterminant;
 import com.example.dima.robodoc.utils.NormaDeterminant;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmList;
@@ -39,7 +30,7 @@ public class EditActivity extends AppCompatActivity {
     private Button buttonConfirm, buttonClear;
     private ImageView user;
     private boolean genderBoolean, checkGender = true;
-    private EditText name, hb, rbc;
+    private EditText name, hb, rbc, mchc, rtc, plt, esr, wbc, eos, bas, lym, mon;
     private long patientId;
     private int selectedId;
     private Realm realm;
@@ -61,6 +52,16 @@ public class EditActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         hb = findViewById(R.id.hb);
         rbc = findViewById(R.id.rbc);
+        mchc = findViewById(R.id.mchc);
+        rtc = findViewById(R.id.rtc);
+        plt = findViewById(R.id.plt);
+        esr = findViewById(R.id.esr);
+        wbc = findViewById(R.id.wbc);
+        eos = findViewById(R.id.eos);
+        bas = findViewById(R.id.bas);
+        lym = findViewById(R.id.lym);
+        mon = findViewById(R.id.mon);
+
         buttonConfirm = findViewById(R.id.buttonConfirm);
         buttonClear = findViewById(R.id.buttonClear);
 
@@ -86,10 +87,38 @@ public class EditActivity extends AppCompatActivity {
                 case "RBC":
                     rbc.setText("" + temp.getValue());
                     break;
+                case "MCHC":
+                    mchc.setText("" + temp.getValue());
+                    break;
+                case "RTC":
+                    rtc.setText("" + temp.getValue());
+                    break;
+                case "PLT":
+                    plt.setText("" + temp.getValue());
+                    break;
+                case "ESR":
+                    esr.setText("" + temp.getValue());
+                    break;
+                case "WBC":
+                    wbc.setText("" + temp.getValue());
+                    break;
+                case "EOS":
+                    eos.setText("" + temp.getValue());
+                    break;
+                case "BAS":
+                    bas.setText("" + temp.getValue());
+                    break;
+                case "LYM":
+                    lym.setText("" + temp.getValue());
+                    break;
+                case "MON":
+                    mon.setText("" + temp.getValue());
+                    break;
             }
         }
 
-        final EditText[] editTexts = {hb, rbc};
+        final EditText[] editTexts = {hb, rbc, mchc, rtc, plt, esr, wbc, eos, bas, lym, mon};
+
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +145,7 @@ public class EditActivity extends AppCompatActivity {
                         patient = realm.copyToRealmOrUpdate(newPatient);
                         realm.commitTransaction();
                         finish();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(EditActivity.this, "Поле не повинно містити лише крапку", Toast.LENGTH_SHORT).show();
                     }
                 }

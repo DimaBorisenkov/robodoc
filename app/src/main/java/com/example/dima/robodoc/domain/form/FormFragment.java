@@ -44,7 +44,7 @@ public class FormFragment extends Fragment implements FormContract.View {
     private Button buttonConfirm, buttonClear;
     private ImageView user;
     private boolean genderBoolean;
-    private EditText name, hb, rbc;
+    private EditText name, hb, rbc, mchc, rtc, plt, esr, wbc, eos, bas, lym, mon;
     private int selectedId;
     private boolean checkGender = false;
     private FormContract.Presenter presenter;
@@ -69,20 +69,28 @@ public class FormFragment extends Fragment implements FormContract.View {
         presenter = new FormPresenter();
         buttonConfirm = view.findViewById(R.id.buttonConfirm);
         buttonClear = view.findViewById(R.id.buttonClear);
+        name = view.findViewById(R.id.name);
         hb = view.findViewById(R.id.hb);
         rbc = view.findViewById(R.id.rbc);
-        name = view.findViewById(R.id.name);
-        final EditText[] editTexts = {hb, rbc};
+        mchc = view.findViewById(R.id.mchc);
+        rtc = view.findViewById(R.id.rtc);
+        plt = view.findViewById(R.id.plt);
+        esr = view.findViewById(R.id.esr);
+        wbc = view.findViewById(R.id.wbc);
+        eos = view.findViewById(R.id.eos);
+        bas = view.findViewById(R.id.bas);
+        lym = view.findViewById(R.id.lym);
+        mon = view.findViewById(R.id.mon);
+
+        final EditText[] editTexts = {hb, rbc, mchc, rtc, plt, esr, wbc, eos, bas, lym, mon};
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean checkName = presenter.checkName(name.getText().toString());
 
-                if (!checkGender)
-                    Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
-                if (!checkName)
-                    Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
+                if (!checkGender) Toast.makeText(getContext(), "Будь ласка, оберіть стать", Toast.LENGTH_SHORT).show();
+                if (!checkName) Toast.makeText(getContext(), "Будь ласка, введіть ім'я", Toast.LENGTH_SHORT).show();
 
                 if (checkName && checkGender) {
                     Date date = new Date();
@@ -102,17 +110,12 @@ public class FormFragment extends Fragment implements FormContract.View {
                         setDefault(editTexts);
 
                     } else {
-
-                        try {
                             Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                             RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
                             patient = presenter.createPatient(patient, blood, diseases);
                             savePatient(patient);
                             transmitValues(patient);
                             setDefault(editTexts);
-                        } catch (Exception e){
-                            Toast.makeText(getContext(), "Поле не повинно містити лише крапку", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
             }

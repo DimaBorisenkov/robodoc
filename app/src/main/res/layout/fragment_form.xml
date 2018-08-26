@@ -49,66 +49,158 @@
 
     <ImageView
         android:id="@+id/user"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_alignEnd="@+id/buttonConfirm"
-        android:layout_below="@+id/selectGender"
+        android:layout_width="131dp"
+        android:layout_height="97dp"
+        android:layout_alignStart="@+id/buttonClear"
+        android:layout_alignTop="@+id/radioSex"
+        android:layout_marginStart="19dp"
         app:srcCompat="@color/back" />
 
 
     <Button
         android:id="@+id/buttonConfirm"
-        android:layout_width="309dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/rbc"
-        android:text="@string/confirm" />
 
-    <EditText
-        android:id="@+id/hb"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/name"
-        android:ems="10"
-        android:hint="HB  (Гемоглобін)"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/rbc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/hb"
-        android:ems="10"
-        android:hint="@string/rbc"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/radioSex"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ім'я" />
-
-    <TextView
-        android:id="@+id/textViewText"
-        android:layout_width="301dp"
-        android:layout_height="126dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_marginBottom="52dp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="18dp"
+        android:background="@color/colorRed"
+        android:text="@string/confirm"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/buttonClear"
-        android:layout_width="309dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioSex"
-        android:layout_below="@+id/buttonConfirm"
-        android:layout_marginTop="10dp"
-        android:text="@string/clear" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/buttonConfirm"
+        android:layout_marginEnd="15dp"
+        android:background="@color/colorRed"
+        android:text="@string/clear"
+        android:textColor="@color/white" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radioSex"
+        android:layout_marginLeft="30dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/radioSex"
+                android:ems="10"
+                android:hint="Ім'я"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/hb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/name"
+                android:ems="10"
+                android:hint="HB  (Гемоглобін)"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/rbc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/hb"
+                android:ems="10"
+                android:hint="@string/rbc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/mchc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/mchc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/rtc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/rtc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/plt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/plt"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/esr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/esr"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/wbc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/wbc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/eos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/eos"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/bas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/bas"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/lym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/lym"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/mon"
+                android:inputType="numberDecimal" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

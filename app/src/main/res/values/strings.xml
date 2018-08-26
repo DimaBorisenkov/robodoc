@@ -17,6 +17,15 @@
     <!-- Blood's names -->
     <string name="hb"> HB   (Гемоглобін)</string>
     <string name="rbc">RBC (Еритроцити)</string>
+    <string name="mchc">MCHC (Кольоровий  показник)</string>
+    <string name="rtc">RTC (Ретикулоцити)</string>
+    <string name="plt">PLT (Тромбоцити)</string>
+    <string name="esr">ESR (ШОЕ)</string>
+    <string name="wbc">WBC (Лейкоцити)</string>
+    <string name="eos">EOS (Еозинофіли)</string>
+    <string name="bas">BAS (Базофіли)</string>
+    <string name="lym">LYM (Лімфоцити)</string>
+    <string name="mon">MON (Моноцити)</string>
 
     <!-- HistoryFragment -->
     <string name="secondTab">ІСТОРІЯ</string>
@@ -39,6 +48,20 @@
     <string name="address">Адреса</string>
     <string name="history">Історія хвороби</string>
     <string name="title_activity_result_base">ResultBaseActivity</string>
+
+    <!--Diseases' names-->
+    <string name="dehydration">Зневоднення</string>
+    <string name="bloodClotting">Згущення крові</string>
+    <string name="vitaminsStomach">Недостаток вітамінів та проблеми з шлунком</string>
+    <string name="anemia">Анемія</string>
+    <string name="moles">Новоутворення</string>
+    <string name="kidneys">Захворювання нирок</string>
+    <string name="hemorrhage">Крововтрата</string>
+    <string name="leukemia">Лейкоз</string>
+    <string name="virus">Вірусне захворювання</string>
+    <string name="autoimmune">Ауто-імунні захворювання</string>
+    <string name="liver">Захворювання печінки</string>
+    <string name="typhus">Тиф</string>
 
 
 </resources>
