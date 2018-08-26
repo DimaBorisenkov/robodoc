@@ -82,10 +82,6 @@ public class FormFragment extends Fragment implements FormContract.View {
         lym = view.findViewById(R.id.lym);
         mon = view.findViewById(R.id.mon);
 
-
-
-
-
         final EditText[] editTexts = {hb, rbc, mchc, rtc, plt, esr, wbc, eos, bas, lym, mon};
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
