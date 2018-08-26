@@ -69,6 +69,95 @@ public class NormaDeterminant {
 
                 }
                 break;
+            case "MCHC":
+                if (bloodValue >= 0.85 && bloodValue <= 1.15) {
+                    blood.setMCHCNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 0.85) blood.setMCHCDown(true);
+                if (bloodValue > 1.15) blood.setMCHCUp(true);
+                break;
+            case "RTC":
+                if (bloodValue >= 0.2 && bloodValue <= 1.2) {
+                    blood.setRTCNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 0.1) blood.setRTCDown(true);
+                if (bloodValue > 1.2) blood.setRTCUp(true);
+                break;
+            case "PLT":
+                if (bloodValue >= 180 && bloodValue <= 320) {
+                    blood.setPLTNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 180) blood.setPLTDown(true);
+                if (bloodValue > 320) blood.setPLTUp(true);
+                break;
+
+            case "ESR":
+                if (gender) {
+                    if (bloodValue >= 1 && bloodValue <= 10) {
+                        blood.setESRNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
+                    if (bloodValue < 1) blood.setESRDown(true);
+                    if (bloodValue > 10) blood.setESRUp(true);
+
+                } else {
+                    if (bloodValue >= 2 && bloodValue <= 15) {
+                        blood.setESRNorma(true);
+                        norma.add(true);
+                    } else norma.add(false);
+                    if (bloodValue < 2) blood.setESRDown(true);
+                    if (bloodValue > 15) blood.setESRUp(true);
+
+                }
+                break;
+
+            case "WBC":
+                if (bloodValue >= 4 && bloodValue <= 9) {
+                    blood.setWBCNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 4) blood.setWBCDown(true);
+                if (bloodValue > 9) blood.setWBCUp(true);
+                break;
+
+            case "EOS":
+                if (bloodValue >= 0 && bloodValue <= 5) {
+                    blood.setEOSNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 0) blood.setEOSDown(true);
+                if (bloodValue > 5) blood.setEOSUp(true);
+                break;
+
+            case "BAS":
+                if (bloodValue >= 0 && bloodValue <= 1) {
+                    blood.setBASNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 0) blood.setBASDown(true);
+                if (bloodValue > 1) blood.setBASUp(true);
+                break;
+
+            case "LYM":
+                if (bloodValue >= 18 && bloodValue <= 40) {
+                    blood.setLYMNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 18) blood.setLYMDown(true);
+                if (bloodValue > 40) blood.setLYMUp(true);
+                break;
+
+            case "MON":
+                if (bloodValue >= 2 && bloodValue <= 9) {
+                    blood.setMONNorma(true);
+                    norma.add(true);
+                } else norma.add(false);
+                if (bloodValue < 2) blood.setMONDown(true);
+                if (bloodValue > 9) blood.setMONUp(true);
+                break;
         }
 
     }

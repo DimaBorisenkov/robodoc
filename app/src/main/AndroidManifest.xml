@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".domain.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".domain.BloodTestActivity" />
+        <activity
+            android:name=".domain.BloodTestActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".domain.TrainerActivity" />
         <activity android:name=".domain.SimpleTestActivity" />
         <activity android:name=".domain.result.ResultActivity" />

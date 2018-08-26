@@ -18,8 +18,8 @@ public class DiseaseDeterminant {
         RealmList<Disease> diseases = new RealmList<>();
 
         if(blood.isHBUp()) diseases.add(new Disease("Зневоднення", R.drawable.dehydration));
-        if(blood.isHBUp() && blood.isRBCUp())
-            diseases.add(new Disease("Згущення крові", R.drawable.blood_clotting));
+        if(blood.isHBUp() && blood.isRBCUp()) diseases.add(new Disease("Згущення крові", R.drawable.blood_clotting));
+
 
         return diseases;
     }

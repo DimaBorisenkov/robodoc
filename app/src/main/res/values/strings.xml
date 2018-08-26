@@ -17,6 +17,15 @@
     <!-- Blood's names -->
     <string name="hb"> HB   (Гемоглобін)</string>
     <string name="rbc">RBC (Еритроцити)</string>
+    <string name="mchc">MCHC (Кольоровий  показник)</string>
+    <string name="rtc">RTC (Ретикулоцити)</string>
+    <string name="plt">PLT (Тромбоцити)</string>
+    <string name="esr">ESR (ШОЕ)</string>
+    <string name="wbc">WBC (Лейкоцити)</string>
+    <string name="eos">EOS (Еозинофіли)</string>
+    <string name="bas">BAS (Базофіли)</string>
+    <string name="lym">LYM (Лімфоцити)</string>
+    <string name="mon">MON (Моноцити)</string>
 
     <!-- HistoryFragment -->
     <string name="secondTab">ІСТОРІЯ</string>
