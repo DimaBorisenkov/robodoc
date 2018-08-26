@@ -110,17 +110,12 @@ public class FormFragment extends Fragment implements FormContract.View {
                         setDefault(editTexts);
 
                     } else {
-
-                        try {
                             Blood blood = new NormaDeterminant().check(presenter.createBloodArrayList(editTexts), genderBoolean);
                             RealmList<Disease> diseases = new DiseaseDeterminant().selectDisease(blood, getContext());
                             patient = presenter.createPatient(patient, blood, diseases);
                             savePatient(patient);
                             transmitValues(patient);
                             setDefault(editTexts);
-                        } catch (Exception e){
-                            Toast.makeText(getContext(), "Поле не повинно містити лише крапку", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
             }

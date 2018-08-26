@@ -43,14 +43,14 @@ public class DiseaseDeterminant {
             }
         }
 
-        if(blood.isLYMUp() && blood.isMONUp() && blood.isWBCDown() && blood.isBASDown())
+        if(blood.isLYMUp() && blood.isMONUp() && blood.isWBCDown())
             diseases.add(new Disease("Вірусне захворювання", R.drawable.infection));
         if(blood.isESRUp() && blood.isMONUp() && blood.isEOSUp() && blood.isPLTDown() && blood.isLYMDown())
             diseases.add(new Disease("Ауто-імунні захворювання", R.drawable.autoimmune));
         if(blood.isESRUp())
             diseases.add(new Disease("Захворювання печінки", R.drawable.liver));
         if(blood.isESRUp() && blood.isPLTUp() && blood.isWBCUp() && blood.isMONUp()
-                && blood.isLYMDown() && blood.isEOSDown() && blood.isBASDown()){
+                && blood.isLYMDown() && blood.isEOSDown()){
             diseases.add(new Disease("Інфекційне захворювання", R.drawable.infection));
         }
         if(blood.isWBCDown())
