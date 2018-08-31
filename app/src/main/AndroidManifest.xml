@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dima.robodoc">
+
+    <application
+        android:name=".data.realm.RealmApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".domain.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".domain.BloodTestActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".domain.TrainerActivity" />
+        <activity android:name=".domain.SimpleTestActivity" />
+        <activity android:name=".domain.result.ResultActivity" />
+        <activity android:name=".domain.EditActivity" />
+        <activity android:name=".domain.archive.PatientBaseActivity" />
+        <activity android:name=".domain.archive.AddPatientActivity" />
+        <activity
+            android:name=".domain.archive.ResultBaseActivity"
+            android:label="@string/title_activity_result_base"></activity>
+    </application>
+
+</manifest>

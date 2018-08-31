@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="@+id/selectGender"
+        android:layout_alignStart="@+id/selectGender"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:button="@drawable/man_icon"
+            android:text="@string/male"
+            android:textAlignment="center"
+            android:textSize="35px" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@drawable/woman_icon"
+            android:text="@string/female"
+            android:textAlignment="center"
+            android:textSize="35px" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/selectGender"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/selectGender"
+        android:textSize="50px" />
+
+    <ImageView
+        android:id="@+id/user"
+        android:layout_width="131dp"
+        android:layout_height="97dp"
+        android:layout_alignStart="@+id/radioSex"
+        android:layout_alignTop="@+id/radioSex"
+        android:layout_marginStart="200dp"
+        app:srcCompat="@color/back" />
+
+
+    <Button
+        android:id="@+id/buttonConfirm"
+
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="475dp"
+        android:background="@color/colorRed"
+        android:text="@string/confirm"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="185dp"
+        android:layout_marginTop="475dp"
+        android:background="@color/colorRed"
+        android:text="@string/clear"
+        android:textColor="@color/white" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/radioSex"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="115dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/radioSex"
+                android:ems="10"
+                android:hint="Ім'я"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/hb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/name"
+                android:ems="10"
+                android:hint="HB  (Гемоглобін)"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/rbc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/radioSex"
+                android:layout_below="@+id/hb"
+                android:ems="10"
+                android:hint="@string/rbc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/mchc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/mchc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/rtc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/rtc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/plt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/plt"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/esr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/esr"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/wbc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/wbc"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/eos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/eos"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/bas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/bas"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/lym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/lym"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/mon"
+                android:inputType="numberDecimal" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

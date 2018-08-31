@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rdc.androidtestappa.domain.history.HistoryFragment">
+    <item
+        android:id="@+id/action_sortByDate"
+        android:orderInCategory="100"
+        android:title="@string/sortByDate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sortByStatus"
+        android:orderInCategory="100"
+        android:title="@string/sortByStatus"
+        app:showAsAction="never" />
+</menu>
+

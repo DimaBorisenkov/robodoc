@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".domain.MainActivity">
+
+    <LinearLayout
+        android:layout_width="259dp"
+        android:layout_height="470dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_shape_layout"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="199dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/blood" />
+
+        <Button
+            android:id="@+id/buttonBloodTestActivity"
+            style="@style/Button"
+            android:layout_marginTop="10dp"
+            android:text="@string/bloodTest" />
+
+        <Button
+            android:id="@+id/buttonTrainerActivity"
+            style="@style/Button"
+            android:layout_marginTop="10dp"
+            android:text="@string/trainer" />
+
+        <Button
+            android:id="@+id/buttonSimpleTestActivity"
+            style="@style/Button"
+            android:layout_marginTop="10dp"
+            android:text="@string/simpleTest" />
+
+        <Button
+            android:id="@+id/buttonPatientBaseActivity"
+            style="@style/Button"
+            android:layout_marginTop="10dp"
+            android:text="@string/patientDB" />
+
+    </LinearLayout>
+</RelativeLayout>

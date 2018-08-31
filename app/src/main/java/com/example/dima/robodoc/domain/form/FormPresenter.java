@@ -1,0 +1,87 @@
+package com.example.dima.robodoc.domain.form;
+
+
+import android.content.Context;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.dima.robodoc.data.models.Blood;
+import com.example.dima.robodoc.data.models.Disease;
+import com.example.dima.robodoc.data.models.Patient;
+import com.example.dima.robodoc.data.realm.RealmHelper;
+import com.example.dima.robodoc.utils.ComporatorByDate;
+import com.example.dima.robodoc.utils.ComporatorByState;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
+import io.realm.RealmList;
+import io.realm.RealmResults;
+
+public class FormPresenter implements FormContract.Presenter {
+
+    @Override
+    public boolean checkName(String name) {
+        if (name.trim().length() == 0) return false;
+        else return true;
+    }
+
+    @Override
+    public boolean checkFields(EditText[] editTexts) {
+        boolean check = true;
+        for (EditText temp : editTexts) {
+            if (temp.getText().toString().trim().length() != 0) check = false;
+        }
+        return check;
+    }
+
+
+    @Override
+    public ArrayList<Blood> createBloodArrayList(EditText[] editTexts) {
+        ArrayList<Blood> bloodArrayList = new ArrayList<>();
+        for (EditText temp : editTexts) {
+            if (temp.getText().length() > 0) {
+                String name = createName(temp.getHint().toString());
+                bloodArrayList.add(new Blood(name.trim(), Double.valueOf(temp.getText().toString().trim())));
+            }
+        }
+        return bloodArrayList;
+
+    }
+
+    @Override
+    public Patient createPatient(Patient patient, Blood blood, RealmList<Disease> diseases) {
+        patient.setState(true);
+        patient.setBlood(blood.getBlood());
+
+        for (Boolean temp : blood.getNorma()) {
+            if (!temp) {
+                patient.setState(false);
+            }
+        }
+
+        if (!patient.isState()) {
+            if (diseases.size() != 0) {
+                patient.setDiseases(diseases);
+            } else {
+                patient.setDiseases(new RealmList<Disease>());
+            }
+        }
+        return patient;
+
+    }
+
+
+
+    @Override
+    public String createName(String hint) {
+        String name = "";
+        char[] nameSymbols = hint.toCharArray();
+        for (int i = 0; i < 4; i++) {
+            name += nameSymbols[i];
+        }
+        return name;
+    }
+}
