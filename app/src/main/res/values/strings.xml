@@ -37,6 +37,7 @@
     <!-- ResultActivity -->
     <string name="delete">Видалити</string>
     <string name="edit">Редагувати</string>
+    <string name="transmit">Перенести</string>
     <string name="title_activity_dase">DaseActivity</string>
     <string name="title_activity_patient_base">PatientBaseActivity</string>
     <string name="title_activity_patient">PatientActivity</string>
@@ -62,6 +63,15 @@
     <string name="autoimmune">Ауто-імунні захворювання</string>
     <string name="liver">Захворювання печінки</string>
     <string name="typhus">Тиф</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!--Map-->
+    <string name="pharmacies">Знайти найближчі аптеки</string>
 
 
+    <!--MedicinesActivity-->
+    <string name="warning">УВАГА! Данна программа є лише бета-версією. Самолікування може бути шкідливим для
+    Вашого здоров'я. Перед придбанням певних препаратів проконсультуйтесь з лікарем!</string>
+    <string name="medicines">Ліки</string>
+    <string name="map">Де я можу придбати ці препарати?</string>
 </resources>

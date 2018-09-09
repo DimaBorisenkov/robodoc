@@ -7,14 +7,17 @@ import io.realm.annotations.RealmClass;
 
 @RealmClass
 public class Disease extends RealmObject {
+
     private String name;
     private int imageId;
     private RealmList<Blood> bloodRealmList;
+    private RealmList<String> medicinesRealmList;
     private int number;
 
-    public Disease(String name, int imageId) {
+    public Disease(String name, int imageId, RealmList<String> medicinesRealmList) {
         this.name = name;
         this.imageId = imageId;
+        this.medicinesRealmList = medicinesRealmList;
     }
 
     public Disease() {
@@ -54,5 +57,13 @@ public class Disease extends RealmObject {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public RealmList<String> getMedicinesRealmList() {
+        return medicinesRealmList;
+    }
+
+    public void setMedicinesRealmList(RealmList<String> medicinesRealmList) {
+        this.medicinesRealmList = medicinesRealmList;
     }
 }

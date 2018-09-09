@@ -22,13 +22,15 @@ import android.widget.TextView;
 import com.example.dima.robodoc.R;
 import com.example.dima.robodoc.data.models.Patient;
 import com.example.dima.robodoc.domain.EditActivity;
+import com.example.dima.robodoc.domain.MedicinesActivity;
 import com.example.dima.robodoc.domain.archive.AddPatientActivity;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 
-public class ResultActivity extends AppCompatActivity implements ResultContract.View {
+public class ResultActivity extends AppCompatActivity implements ResultContract.View,
+        View.OnClickListener {
     private TextView patientName, patientState, patientDiseases, patientDate, patientBlood;
     private ImageView imageView;
     private long id;
@@ -38,8 +40,9 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     private ResultPresenter presenter;
     private Resources resources;
     private Drawable[] drawables;
-    private Button buttonDelete, buttonEdit, buttonTransmit;
+    private Button buttonDelete, buttonEdit, buttonTransmit, buttonMedicines;
     private LinearLayout layout;
+    Realm realm;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -54,10 +57,15 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         buttonDelete = findViewById(R.id.buttonDelete);
         buttonEdit = findViewById(R.id.buttonEdit);
         buttonTransmit = findViewById(R.id.buttonTransmit);
-        if (type.equals("history")) {
-            buttonDelete.setVisibility(View.VISIBLE);
-            buttonEdit.setVisibility(View.VISIBLE);
-            buttonTransmit.setVisibility(View.VISIBLE);
+        buttonMedicines = findViewById(R.id.buttonMedicines);
+        Button[] buttons = {buttonDelete, buttonEdit, buttonTransmit, buttonMedicines};
+
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setOnClickListener(this);
+            if (type.equals("history")) {
+                buttons[i].setVisibility(View.VISIBLE);
+            }
         }
 
         patientName = findViewById(R.id.textViewPatientName);
@@ -69,7 +77,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         layout = findViewById(R.id.nameLayout);
 
         RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
-        final Realm realm = Realm.getInstance(configFirst);
+        realm = Realm.getInstance(configFirst);
         try {
             patient = realm.where(Patient.class).equalTo("id", id).findFirst();
         } finally {
@@ -84,7 +92,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
 
         setValues();
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
+       /* buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 realm.beginTransaction();
@@ -112,7 +120,7 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
                 intent.putExtra("type", "result");
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
@@ -171,5 +179,34 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
     protected void onResume() {
         super.onResume();
         setValues();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.buttonMedicines:
+                intent = new Intent(ResultActivity.this, MedicinesActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
+            case R.id.buttonDelete:
+                realm.beginTransaction();
+                patient.deleteFromRealm();
+                realm.commitTransaction();
+                finish();
+                break;
+            case R.id.buttonEdit:
+                intent = new Intent(ResultActivity.this, EditActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
+            case R.id.buttonTransmit:
+                intent = new Intent(ResultActivity.this, AddPatientActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("type", "result");
+                startActivity(intent);
+                break;
+        }
     }
 }
