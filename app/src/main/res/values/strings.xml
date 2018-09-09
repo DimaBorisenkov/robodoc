@@ -70,8 +70,7 @@
 
 
     <!--MedicinesActivity-->
-    <string name="warning">УВАГА! Данна программа є лише бета-версією.
-        Перед придбанням певних препаратів проконсультуйтесь з лікарем!</string>
+
     <string name="medicines">Ліки</string>
     <string name="map">Де я можу придбати ці препарати?</string>
 </resources>

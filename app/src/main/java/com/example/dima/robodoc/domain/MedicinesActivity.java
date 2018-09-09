@@ -34,6 +34,10 @@ public class MedicinesActivity extends AppCompatActivity {
         medicines = findViewById(R.id.medicines);
         button = findViewById(R.id.buttonMapActivity);
 
+        warning.setText("УВАГА! Данна программа є лише бета-версією." + "\n" +
+                "Перед придбанням певних препаратів проконсультуйтесь з лікарем!" + "\n" +
+                "Самолікування може бути шкідливим для вашого здоров'я!");
+
         id = getIntent().getLongExtra("id", 0);
         RealmConfiguration configFirst = new RealmConfiguration.Builder().name("firstrealm.realm").build();
         realm = Realm.getInstance(configFirst);

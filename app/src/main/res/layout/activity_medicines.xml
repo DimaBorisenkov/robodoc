@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/warning"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="10dp"
+
         android:textSize="20sp"
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteX="16dp"
@@ -20,22 +22,22 @@
 
     <TextView
         android:id="@+id/medicines"
-        android:layout_width="349dp"
+        android:layout_width="351dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/warning"
+        android:layout_marginLeft="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="133dp"
         android:text="@string/medicines"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/buttonMapActivity"
-        android:layout_width="360dp"
+        android:layout_width="343dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/warning"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/white"
         android:background="@color/colorRed"
-        android:text="@string/map" />
+        android:text="@string/map"
+        android:textColor="@color/white" />
 </RelativeLayout>
