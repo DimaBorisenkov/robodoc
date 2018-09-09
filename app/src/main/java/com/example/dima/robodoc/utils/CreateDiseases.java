@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class CreateDiseases {
 
-
     public Disease createDiseases(boolean gender) {
         Disease generatedDisease = new Disease();
         Random random = new Random();

@@ -122,8 +122,18 @@
         android:layout_width="115dp"
         android:layout_height="30dp"
         android:layout_above="@+id/buttonEdit"
+        android:layout_alignStart="@+id/buttonMedicines"
+        android:text="@string/transmit"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonMedicines"
+        android:layout_width="115dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/buttonDelete"
-        android:text="перенести"
+        android:layout_marginBottom="102dp"
+        android:text="@string/medicines"
         android:visibility="invisible" />
 
 </RelativeLayout>

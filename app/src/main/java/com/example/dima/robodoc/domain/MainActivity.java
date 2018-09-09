@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.buttonSimpleTestActivity:
-                intent = new Intent(MainActivity.this, SimpleTestActivity.class);
+                intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.buttonPatientBaseActivity:
