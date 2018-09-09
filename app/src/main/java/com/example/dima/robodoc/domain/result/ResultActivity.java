@@ -58,8 +58,8 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
         buttonEdit = findViewById(R.id.buttonEdit);
         buttonTransmit = findViewById(R.id.buttonTransmit);
         buttonMedicines = findViewById(R.id.buttonMedicines);
-        Button[] buttons = {buttonDelete, buttonEdit, buttonTransmit, buttonMedicines};
 
+        Button[] buttons = {buttonDelete, buttonEdit, buttonTransmit, buttonMedicines};
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i].setOnClickListener(this);
@@ -84,44 +84,13 @@ public class ResultActivity extends AppCompatActivity implements ResultContract.
             realm.close();
         }
 
+        if(patient.getDiseases().size() <= 0) buttonMedicines.setVisibility(View.INVISIBLE);
+
         resources = getResources();
         imageView.setImageDrawable(resources.getDrawable(R.layout.layer, null));
         presenter = new ResultPresenter();
         presenter.setView(this);
-
-
         setValues();
-
-       /* buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm.beginTransaction();
-                patient.deleteFromRealm();
-                realm.commitTransaction();
-                finish();
-            }
-        });
-
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(ResultActivity.this, EditActivity.class);
-                intent.putExtra("id", id);
-                startActivity(intent);
-
-            }
-        });
-
-        buttonTransmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ResultActivity.this, AddPatientActivity.class);
-                intent.putExtra("id", id);
-                intent.putExtra("type", "result");
-                startActivity(intent);
-            }
-        });*/
-
     }
 
     @Override
