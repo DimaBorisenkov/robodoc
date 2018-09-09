@@ -9,10 +9,10 @@
     <TextView
         android:id="@+id/warning"
         android:layout_width="357dp"
-        android:layout_height="149dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-
+        android:text="@string/warning"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteX="16dp"
@@ -20,12 +20,13 @@
 
     <TextView
         android:id="@+id/medicines"
-        android:layout_width="358dp"
-        android:layout_height="350dp"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/warning"
-        android:layout_marginTop="141dp"
-        android:text="@string/medicines" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="133dp"
+        android:text="@string/medicines"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/buttonMapActivity"
